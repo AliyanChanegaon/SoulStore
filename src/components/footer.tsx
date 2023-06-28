@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VStack,
   HStack,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import {
   FaFacebook,
@@ -35,12 +35,13 @@ export default function Footer() {
   const color = useColorModeValue("red.500", "#2a9df4");
   return (
     <VStack
-      w="full"
+      w="100%"
+      position="relative"
       bottom={0}
       bg={"blackAlpha.200"}
       color={useColorModeValue("gray.700", "gray.200")}
     >
-      <Container as={Stack} maxW={"6xl"} py={10}>
+      <Container as={Stack} maxW={"6xl"} pt="25px" >
         <SimpleGrid columns={{ base: 2, sm: 2, md: 4 }} spacing={8}>
           <Stack align={"flex-start"}>
             <Text fontWeight="bolder" fontSize="xl" color={color}>
@@ -112,15 +113,22 @@ export default function Footer() {
             </HStack>
           </Stack>
         </SimpleGrid>
-        <HStack mt="20px" w="100%" flexDirection="column">
-          <Stack justify="center"  flexDirection="row" ><Text mt="3px"><BsPhone /> </Text><Text fontWeight="bolder"> EXPERIENCE THE SOULED STORE APP</Text></Stack>
-          <Stack flexDirection="row">
-          <Image h={10} src="src\img\Footer-images\appstore.png" />
-          <Image h={10} src="src\img\Footer-images\playstore.png" />
+        <HStack mt="20px" flexDirection="column">
+          <Stack justify="center" flexDirection="row">
+            <Text mt="3px">
+              <BsPhone />{" "}
+            </Text>
+            <Text fontWeight="bolder"> EXPERIENCE THE SOULED STORE APP</Text>
           </Stack>
-          
+          <Stack flexDirection="row">
+            <Image h={10} src="src\img\Footer-images\appstore.png" />
+            <Image h={10} src="src\img\Footer-images\playstore.png" />
+          </Stack>
         </HStack>
-        <HStack justify={{base:  "center", sm: "center", md: "flex-end" }} mr={{base: "none", sm: "none", md: "80px" }}>
+        <HStack
+          justify={{ base: "center", sm: "center", md: "flex-end" }}
+          mr={{ base: "none", sm: "none", md: "80px" }}
+        >
           <ListHeader>Follow us</ListHeader>
           <HStack mb="5px">
             <FaFacebook />
@@ -130,7 +138,7 @@ export default function Footer() {
           </HStack>
         </HStack>
       </Container>
-      <Box py={10}>
+      <Box pb="25px" >
         <Flex
           align={"center"}
           _before={{
