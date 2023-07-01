@@ -4,7 +4,7 @@ import Navbar from "./Routes/Navbar";
 import Footer from "./components/footer";
 import Home from "./pages/kid";
 import Allroutes from "./Routes/Allroutes";
-
+import "./App.css";
 
 function App() {
   return (

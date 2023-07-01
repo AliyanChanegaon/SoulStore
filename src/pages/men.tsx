@@ -6,46 +6,112 @@ import {
   Card,
   CardBody,
   Image,
+  Heading,
+  Highlight,
 } from "@chakra-ui/react";
 import TopSlider from "../components/TopSlider";
 import Collection from "../components/category";
 import Category from "../components/category";
-
-const sliderImages: string[] = [
-  "./src/img/Mens-slider/1.png",
-  "./src/img/Mens-slider/2.png",
-  "./src/img/Mens-slider/3.png",
-  "./src/img/Mens-slider/4.png",
-  "./src/img/Mens-slider/5.png",
+import TopSeller from "../components/smallcomponents/topSeller";
+const sliderImages = [
+  "./src/img/Mens/Mens-slider/1.png",
+  "./src/img/Mens/Mens-slider/2.png",
+  "./src/img/Mens/Mens-slider/3.png",
+  "./src/img/Mens/Mens-slider/4.png",
+  "./src/img/Mens/Mens-slider/5.png",
 ];
 
-const collectionItems: string[] = [
-  "./src/img/Mens-collection/1.png",
-  "./src/img/Mens-collection/2.png",
-  "./src/img/Mens-collection/3.png",
-  "./src/img/Mens-collection/4.png",
-  "./src/img/Mens-collection/5.png",
-  "./src/img/Mens-collection/6.png",
-  "./src/img/Mens-collection/7.png",
-  "./src/img/Mens-collection/8.png",
-  "./src/img/Mens-collection/9.png",
+const collectionItems = [
+  "./src/img/Mens/Mens-collection/1.png",
+  "./src/img/Mens/Mens-collection/2.png",
+  "./src/img/Mens/Mens-collection/3.png",
+  "./src/img/Mens/Mens-collection/4.png",
+  "./src/img/Mens/Mens-collection/5.png",
+  "./src/img/Mens/Mens-collection/6.png",
+  "./src/img/Mens/Mens-collection/7.png",
+  "./src/img/Mens/Mens-collection/8.png",
+  "./src/img/Mens/Mens-collection/9.png",
 ];
 
-const categoryItems: string[] = [
-  "./src/img/Mens-Category/1.png 4",
-  "./src/img/Mens-Category/2.png 4",
-  "./src/img/Mens-Category/3.png 4",
-  "./src/img/Mens-Category/4.png 3",
-  "./src/img/Mens-Category/5.png 3",
-  "./src/img/Mens-Category/6.png 3",
-  "./src/img/Mens-Category/7.png 3",
-  "./src/img/Mens-Category/8.png 3",
-  "./src/img/Mens-Category/9.png 3",
-  "./src/img/Mens-Category/10.png 6",
-  "./src/img/Mens-Category/11.png 3",
-  "./src/img/Mens-Category/12.png 3",
-  "./src/img/Mens-Category/13.png 3",
-  "./src/img/Mens-Category/14.png 3",
+const categoryItems = [
+  "./src/img/Mens/Mens-Category/1.png 4",
+  "./src/img/Mens/Mens-Category/2.png 4",
+  "./src/img/Mens/Mens-Category/3.png 4",
+  "./src/img/Mens/Mens-Category/4.png 3",
+  "./src/img/Mens/Mens-Category/5.png 3",
+  "./src/img/Mens/Mens-Category/6.png 3",
+  "./src/img/Mens/Mens-Category/7.png 3",
+  "./src/img/Mens/Mens-Category/8.png 3",
+  "./src/img/Mens/Mens-Category/9.png 3",
+  "./src/img/Mens/Mens-Category/10.png 6",
+  "./src/img/Mens/Mens-Category/11.png 3",
+  "./src/img/Mens/Mens-Category/12.png 3",
+  "./src/img/Mens/Mens-Category/13.png 3",
+  "./src/img/Mens/Mens-Category/14.png 3",
+];
+
+export const officialMerchandise = [
+  "./src/img/Official merchandise common/1.png",
+  "./src/img/Official merchandise common/2.png",
+  "./src/img/Official merchandise common/3.png",
+  "./src/img/Official merchandise common/4.png",
+  "./src/img/Official merchandise common/5.png",
+  "./src/img/Official merchandise common/6.png",
+  "./src/img/Official merchandise common/7.png",
+  "./src/img/Official merchandise common/8.png",
+  "./src/img/Official merchandise common/9.png",
+  "./src/img/Official merchandise common/10.png",
+];
+
+const topSellerImg = [
+  {
+    img: "./src/img/Mens/Mens-Topseller/1.png",
+    name: "Looney Tunes: Did Somebody Say..",
+    type: "Oversized T-Shirts",
+    price: "999",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/2.png",
+    name: "Stripes: Malibu Blue",
+    type: "Shirt",
+    price: "999",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/3.png",
+    name: "Harry Potter: Slytherin",
+    type: "T-Shirt",
+    price: "599",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/4.png",
+    name: "Batman: HD Logo",
+    type: "Jogger",
+    price: "1599",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/5.png",
+    name: "Harry Potter:Hogwarts ",
+    type: "Polo",
+    price: "999",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/6.png",
+    name: "Solids: Mid-Blue",
+    type: "Men Jeans",
+    price: "1999 2299 13%",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/7.png",
+    name: "Punisher: Logo",
+    type: "Shorts",
+    price: "999",
+  },
+  {
+    img: "./src/img/Mens/Mens-Topseller/8.png",
+    name: "Naruto: Attack",
+    type: "Boxer Shorts",
+    price: "399 499 20%",
+  },
 ];
 
 const Men = () => {
@@ -57,17 +123,60 @@ const Men = () => {
       fontWeight="bold"
       fontSize="2xl"
     >
-      <TopSlider data={sliderImages} />
+      <TopSlider data={sliderImages} collection="topSection" />
 
-      <VStack w="100%">
+      <VStack gap={4} w="100%">
         <Text align="center">COLLECTIONS</Text>
 
-        <TopSlider data={collectionItems} collection={true} />
+        <TopSlider data={collectionItems} collection="collectionItems" />
       </VStack>
 
-      <VStack w="100%">
+      <VStack gap={4} w="100%">
         <Text align="center">CATEGORIES</Text>
-        <Category data={categoryItems} />
+        <Category data={categoryItems} category="mensCategory" />
+      </VStack>
+
+      <VStack gap={4} w="100%">
+        <Text align="center">OFFICIAL MERCHANDISE</Text>
+        <TopSlider
+          data={officialMerchandise}
+          collection="officialMerchandise"
+        />
+      </VStack>
+
+      <VStack gap={4} w="100%">
+        <Text align="center">TOP SELLING</Text>
+        <TopSeller data={topSellerImg} />
+      </VStack>
+
+      <VStack gap={4} w="100%">
+        <Text align="center">MEMBERSHIP</Text>
+        <Image pr={4} width="94%" src=".\src\img\Membership.png" />
+      </VStack>
+
+      <VStack gap={4} w="100%">
+        <Text>STRAIGHT OUT OF CELEBRITY CLOSETS</Text>
+        <Image pr={4} width="94%" src=".\src\img\bottomBanner.png" />
+      </VStack>
+
+      <VStack gap={4} w="100%">
+        <Text
+          color="whiteAlpha.900"
+          bgColor="red"
+          w="100%"
+          align="center"
+          fontSize="1.4em"
+          fontWeight="500"
+          letterSpacing="1.5px"
+          line-height="1.1"
+        >
+          HOMEGROWN INDIAN BRAND
+        </Text>
+        <Text align="center" fontSize="1.6em" fontWeight="400">
+          <Highlight query="6 Million" styles={{ py: "1", fontWeight: "700" }}>
+            Over 6 Million Happy Customers
+          </Highlight>
+        </Text>
       </VStack>
     </VStack>
   );
