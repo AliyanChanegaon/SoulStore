@@ -39,7 +39,7 @@ import MenuBar from "../components/smallcomponents/menu";
 import { FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import Logo from "../components/smallcomponents/Logo";
 import ThemeButton from "../components/smallcomponents/Theme";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Navclick } from "../Redux/navbar.action.type";
 const mainLinks: Array<{ path: string; title: string }> = [
   {
@@ -104,9 +104,22 @@ export default function Navbar() {
           position="absolute"
           right="4%"
         >
-          <Image height="25px" src="\src\img\icons\search.png" />
+          <NavLink to={"/"} end>
+            <Image height="25px" src="\src\img\icons\search.png" />
+          </NavLink>
+
+          <NavLink to={"/wishlist"} end>
           <Image height="25px" src="\src\img\icons\heart.png" />
+          </NavLink>
+
+          <NavLink to={"/cart"} end>
           <Image height="25px" src="\src\img\icons\cart.png" />
+          </NavLink>
+
+
+        
+        
+          
         </Stack>
         <Flex
           position="relative"
@@ -122,6 +135,8 @@ export default function Navbar() {
           >
             <Logo />
           </Stack>
+
+          <Stack></Stack>
 
           <DesktopNav />
         </Flex>
@@ -145,10 +160,6 @@ export default function Navbar() {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-
-      {/* <Collapse in={isOpen} animateOpacity>
-        <MobileDrawer />
-      </Collapse> */}
     </Box>
   );
 }
@@ -200,12 +211,10 @@ const DesktopNav = () => {
             <NavLink
               key={idx}
               to={el.path}
-              // style={{ fontSize: "25px", marginTop: "3px" }}
               style={({ isActive }: any) =>
                 isActive ? activestyle : defaultstyle
               }
               end
-              onClick={() => dispatch(Navclick(el.title))}
             >
               {el.title}
             </NavLink>
@@ -243,14 +252,16 @@ const DesktopNav = () => {
 
         <HStack mr={50} gap={7}>
           {NavIcons.map((el: any, idx: number) => (
-            <IconButton
-              key={idx}
-              variant="ghost"
-              fontSize="2xl"
-              aria-label="Call Segun"
-              size="xl"
-              icon={el}
-            />
+            <NavLink key={idx} to={el.path} end>
+              <IconButton
+                key={idx}
+                variant="ghost"
+                fontSize="2xl"
+                aria-label="Call Segun"
+                size="xl"
+                icon={el.icon}
+              />
+            </NavLink>
           ))}
         </HStack>
       </HStack>
@@ -265,7 +276,7 @@ const MobileDrawer = () => {
   const dispatch = useDispatch();
   const bg = useColorModeValue("red.500", "#2a9df4");
   const color = useColorModeValue("black", "white");
-
+  const Navigate = useNavigate();
   const menubg = useColorModeValue("none", "#0e4482");
   return (
     <Stack
@@ -280,6 +291,20 @@ const MobileDrawer = () => {
         left="5%"
       >
         <Logo />
+      </Stack>
+      <Stack
+        display={{ base: "flex", md: "none" }}
+        position="absolute"
+        top="2%"
+        left="45%"
+      >
+        <Button
+          colorScheme="teal"
+          variant="outline"
+          onClick={() => Navigate("/login")}
+        >
+          Login/Register
+        </Button>
       </Stack>
       <Tabs style={{ width: "full" }} p={2} align="center" variant="line">
         <TabList
@@ -437,11 +462,28 @@ const menusList: Array<{ title: string; options?: Array<string> }> = [
 ];
 
 const NavIcons: any = [
-  <SearchIcon />,
-  <FaRegUser />,
-  <FaRegHeart />,
-  <FaShoppingBag />,
-  <ThemeButton />,
+  {
+    path: "/",
+    icon: <SearchIcon />,
+  },
+
+  {
+    path: "/login",
+    icon: <FaRegUser />,
+  },
+
+  {
+    path: "/wishlist",
+    icon: <FaRegHeart />,
+  },
+  {
+    path: "/cart",
+    icon: <FaShoppingBag />,
+  },
+  {
+    path: "/",
+    icon: <ThemeButton />,
+  },
 ];
 
 const NAV_ITEMS: Array<NavItem> = [

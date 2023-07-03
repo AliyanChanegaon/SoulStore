@@ -7,6 +7,7 @@ interface sliderProp {
 }
 
 const Category = (data: sliderProp) => {
+  console.log(data.data);
   return (
     <>
       {(() => {
@@ -65,6 +66,38 @@ const Category = (data: sliderProp) => {
                       >
                         <Image
                           src={value[0]}
+                          cursor="pointer"
+                          transition="all 0.3s ease-in-out"
+                          w="100%"
+                          _hover={{ transform: "scale(1.1)" }}
+                        />
+                      </GridItem>
+                    );
+                  })}
+                </Grid>
+              );
+
+              case "kidsCategory":
+              return (
+                <Grid
+                  templateColumns={{ base: "repeat(2fr)", md: "repeat(8, 1fr)" }}
+                  gap="2"
+                  color="blackAlpha.700"
+                  fontWeight="bold"
+                  w="95%"
+                >
+                  {data.data.map((el: string, idx: number) => {
+                   
+                      
+                    return (
+                      <GridItem
+                        key={idx}
+                        maxW={{ base: "100%", md: "none" }}
+                        colSpan={2}
+                        overflow="hidden"
+                      >
+                        <Image
+                          src={el}
                           cursor="pointer"
                           transition="all 0.3s ease-in-out"
                           w="100%"

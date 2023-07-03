@@ -48,7 +48,18 @@ const TopSlider = (data: sliderProp) => {
   const myData = data?.data?.map((el: string, idx: number) => (
     <Image
       key={idx}
-      width={data.collection ? "95%" : "full"}
+      width={(() => {
+        switch (data.collection) {
+          case "topSection":
+            return "100%";
+
+          case "collectionItems":
+            return "97%";
+
+          case "officialMerchandise":
+            return "90%";
+        }
+      })()}
       className="item"
       data-value={idx}
       src={el}

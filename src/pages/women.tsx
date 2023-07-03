@@ -34,16 +34,14 @@ const categoryItems = [
   "./src/img/Womens/Womens-Category/10.png 3",
 ];
 
-const ShopItems=[
+const ShopItems = [
   "./src/img/Womens/Womens-ShopByColor/1.png",
   "./src/img/Womens/Womens-ShopByColor/2.png",
   "./src/img/Womens/Womens-ShopByColor/3.png",
   "./src/img/Womens/Womens-ShopByColor/4.png",
   "./src/img/Womens/Womens-ShopByColor/5.png",
   "./src/img/Womens/Womens-ShopByColor/6.png",
-
-
-]
+];
 
 const topSellerImg = [
   {
@@ -88,7 +86,7 @@ const topSellerImg = [
     type: "Women's Co-ord Set",
     price: "1791 2127 16%",
   },
-]
+];
 const Women = () => {
   return (
     <VStack
@@ -114,7 +112,6 @@ const Women = () => {
         <TopSlider data={ShopItems} collection="collectionItems" />
       </VStack>
 
-
       <VStack gap={4} w="100%">
         <Text align="center">OFFICIAL MERCHANDISE</Text>
         <TopSlider
@@ -122,7 +119,6 @@ const Women = () => {
           collection="officialMerchandise"
         />
       </VStack>
-
 
       <VStack gap={4} w="100%">
         <Text align="center">TOP SELLING</Text>
@@ -135,14 +131,12 @@ const Women = () => {
       </VStack>
 
       <Stack flexDirection="row">
-      <Text align="center" fontSize="1.6em" fontWeight="400">
+        <Text align="center" fontSize="1.6em" fontWeight="400">
           <Highlight query="6 Million" styles={{ py: "1", fontWeight: "700" }}>
             Over 6 Million Happy Customers
           </Highlight>
         </Text>
       </Stack>
-      
-
     </VStack>
   );
 };

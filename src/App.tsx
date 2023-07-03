@@ -2,23 +2,18 @@ import { useState } from "react";
 import { VStack, Container, Stack } from "@chakra-ui/react";
 import Navbar from "./Routes/Navbar";
 import Footer from "./components/footer";
-import Home from "./pages/kid";
 import Allroutes from "./Routes/Allroutes";
 import "./App.css";
 
 function App() {
   return (
-
-    <VStack margin="auto"  w="100vw" h="100vh">
-      
+    <VStack margin="auto" w="100vw" h="100vh" gap={0} p={0} m={0}>
       <Navbar />
-   <Allroutes/>
-  
-   
-      {/* Content */}
-       <Footer/>
-    </VStack>
+      <Allroutes />
 
+      {/* Content */}
+      <Footer />
+    </VStack>
   );
 }
 
