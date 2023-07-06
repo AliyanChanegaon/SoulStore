@@ -1,5 +1,5 @@
 import { Highlight, Image, Text, VStack } from "@chakra-ui/react";
-import TopSlider from "../components/TopSlider";
+import TopSlider from "../components/top-slider";
 import { officialMerchandise } from "./men";
 import Category from "../components/category";
 

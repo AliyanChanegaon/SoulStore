@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { VStack, Container, Stack } from "@chakra-ui/react";
-import Navbar from "./Routes/Navbar";
+import { VStack, Container, HStack } from "@chakra-ui/react";
+import Navbar from "./routes/Navbar";
 import Footer from "./components/footer";
-import Allroutes from "./Routes/Allroutes";
+import Allroutes from "./routes/Allroutes";
 import "./App.css";
 
 function App() {
@@ -12,7 +12,10 @@ function App() {
       <Allroutes />
 
       {/* Content */}
+
       <Footer />
+     
+     
     </VStack>
   );
 }

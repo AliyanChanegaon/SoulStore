@@ -1,19 +1,8 @@
-import {
-  SimpleGrid,
-  Text,
-  Stack,
-  VStack,
-  Card,
-  CardBody,
-  Image,
-  Heading,
-  Highlight,
-} from "@chakra-ui/react";
-import TopSlider from "../components/TopSlider";
-import Collection from "../components/category";
+import { Text, VStack, Image, Highlight } from "@chakra-ui/react";
+import TopSlider from "../components/top-slider";
 import Category from "../components/category";
-import TopSeller from "../components/smallcomponents/topSeller";
-const sliderImages = [
+import TopSeller from "../components/smallcomponents/top-seller";
+export const sliderImages = [
   "./src/img/Mens/Mens-slider/1.png",
   "./src/img/Mens/Mens-slider/2.png",
   "./src/img/Mens/Mens-slider/3.png",

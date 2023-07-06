@@ -1,8 +1,8 @@
 import { Highlight, Image, Stack, Text, VStack } from "@chakra-ui/react";
-import TopSlider from "../components/TopSlider";
+import TopSlider from "../components/top-slider";
 import Category from "../components/category";
 import { officialMerchandise } from "./men";
-import TopSeller from "../components/smallcomponents/topSeller";
+import TopSeller from "../components/smallcomponents/top-seller";
 
 const sliderImages = [
   "./src/img/Womens/Womens-slider/1.png",

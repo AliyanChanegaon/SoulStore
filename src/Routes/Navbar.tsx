@@ -9,12 +9,9 @@ import {
   Icon,
   Link,
   HStack,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  VStack,
   Image,
   Drawer,
   DrawerOverlay,
@@ -26,6 +23,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  VStack,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -34,13 +32,11 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
 import MenuBar from "../components/smallcomponents/menu";
 import { FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
-import Logo from "../components/smallcomponents/Logo";
-import ThemeButton from "../components/smallcomponents/Theme";
+import Logo from "../components/smallcomponents/logo";
+import ThemeButton from "../components/smallcomponents/theme";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Navclick } from "../Redux/navbar.action.type";
 const mainLinks: Array<{ path: string; title: string }> = [
   {
     path: "/men",
@@ -109,17 +105,12 @@ export default function Navbar() {
           </NavLink>
 
           <NavLink to={"/wishlist"} end>
-          <Image height="25px" src="\src\img\icons\heart.png" />
+            <Image height="25px" src="\src\img\icons\heart.png" />
           </NavLink>
 
           <NavLink to={"/cart"} end>
-          <Image height="25px" src="\src\img\icons\cart.png" />
+            <Image height="25px" src="\src\img\icons\cart.png" />
           </NavLink>
-
-
-        
-        
-          
         </Stack>
         <Flex
           position="relative"
@@ -135,8 +126,6 @@ export default function Navbar() {
           >
             <Logo />
           </Stack>
-
-          <Stack></Stack>
 
           <DesktopNav />
         </Flex>
@@ -168,7 +157,6 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const dispatch = useDispatch();
   const bg = useColorModeValue("red.500", "#2a9df4");
   const color = useColorModeValue("black", "white");
 
@@ -251,18 +239,22 @@ const DesktopNav = () => {
         </Stack>
 
         <HStack mr={50} gap={7}>
-          {NavIcons.map((el: any, idx: number) => (
-            <NavLink key={idx} to={el.path} end>
-              <IconButton
-                key={idx}
-                variant="ghost"
-                fontSize="2xl"
-                aria-label="Call Segun"
-                size="xl"
-                icon={el.icon}
-              />
-            </NavLink>
-          ))}
+          {NavIcons.map((el: any, idx: number) => {
+            return el.type == "link" ? (
+              <NavLink key={idx} to={el.path} end>
+                <IconButton
+                  key={idx}
+                  variant="ghost"
+                  fontSize="2xl"
+                  aria-label="Call Segun"
+                  size="xl"
+                  icon={el.icon}
+                />
+              </NavLink>
+            ) : (
+              <div key={idx}>{el.icon}</div>
+            );
+          })}
         </HStack>
       </HStack>
     </VStack>
@@ -273,7 +265,6 @@ const MobileDrawer = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const dispatch = useDispatch();
   const bg = useColorModeValue("red.500", "#2a9df4");
   const color = useColorModeValue("black", "white");
   const Navigate = useNavigate();
@@ -463,25 +454,28 @@ const menusList: Array<{ title: string; options?: Array<string> }> = [
 
 const NavIcons: any = [
   {
-    path: "/",
+    type: "button",
     icon: <SearchIcon />,
   },
 
   {
     path: "/login",
+    type: "link",
     icon: <FaRegUser />,
   },
 
   {
     path: "/wishlist",
+    type: "link",
     icon: <FaRegHeart />,
   },
   {
     path: "/cart",
+    type: "link",
     icon: <FaShoppingBag />,
   },
   {
-    path: "/",
+    type: "button",
     icon: <ThemeButton />,
   },
 ];

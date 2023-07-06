@@ -10,7 +10,7 @@ function ThemeButton() {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("red.500", "blue.900");
   const color = useColorModeValue("black", "white");
-  const imgColor = useColorModeValue("none", "hue-rotate(205deg)");
+  
   return (
     <header>
       <IconButton

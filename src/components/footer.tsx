@@ -21,7 +21,7 @@ import { IoIosRefresh } from "react-icons/io";
 import { BsPhone } from "react-icons/bs";
 
 import { ReactNode } from "react";
-import Logo from "./smallcomponents/Logo";
+import Logo from "./smallcomponents/logo";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -36,8 +36,6 @@ export default function Footer() {
   return (
     <VStack
       w="100%"
-      position="relative"
-      bottom={0}
       bg={"blackAlpha.200"}
       color={useColorModeValue("gray.700", "gray.200")}
     >

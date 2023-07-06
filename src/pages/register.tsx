@@ -15,13 +15,18 @@ import {
   Radio,
   InputGroup,
   InputLeftElement,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const Navigate = useNavigate();
+  const bg = useColorModeValue("#e6e7e8", "#1a202c");
+  const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
+  const buttonBg = useColorModeValue("teal", "telegram");
+  const textColor = useColorModeValue("red", "#a2d4ec");
   return (
-    <VStack w="100%" bgColor="#e6e7e8" p={{ base: 0, md: 4 }} fontSize="sm">
+    <VStack w="100%" bgColor={bg} p={{ base: 0, md: 4 }} fontSize="sm">
       <Stack
         margin="auto"
         w={{ base: "100%", md: "32%" }}
@@ -29,7 +34,7 @@ const Register = () => {
         justifyContent="center"
         p={{ base: 6, md: 8 }}
         gap={4}
-        bgColor="#ffffff"
+        bgColor={boxBg}
       >
         <Text align="center" fontWeight="600" fontSize="md">
           Register with The Souled Store
@@ -38,13 +43,18 @@ const Register = () => {
           <Button
             w="50%"
             borderRadius="0px"
-            colorScheme="teal"
+            colorScheme={buttonBg}
             variant="outline"
             onClick={() => Navigate("/login")}
           >
             Login
           </Button>
-          <Button w="50%" borderRadius="0px" colorScheme="teal" variant="solid">
+          <Button
+            w="50%"
+            borderRadius="0px"
+            colorScheme={buttonBg}
+            variant="solid"
+          >
             Register
           </Button>
         </Stack>
@@ -59,13 +69,12 @@ const Register = () => {
             marginLeft: "-5px",
             width: "0",
             height: "0",
-
             borderLeft: "10px solid transparent",
             borderRight: "10px solid transparent",
             borderBottom: "10px solid grey",
           }}
           border="1px solid #a7a6a6"
-          bgColor="#f1f1f2"
+          bgColor={boxBg}
           justifyContent="center"
           p={{ base: 2, md: 5 }}
           gap={2}
@@ -96,7 +105,7 @@ const Register = () => {
                 type="text"
                 variant="outline"
                 placeholder="First Name"
-                bgColor="white"
+                bgColor={boxBg}
                 rounded="xl"
                 required
               />
@@ -106,7 +115,7 @@ const Register = () => {
                 type="text"
                 variant="outline"
                 placeholder="Last Name"
-                bgColor="white"
+                bgColor={boxBg}
                 rounded="xl"
                 required
               />
@@ -116,7 +125,7 @@ const Register = () => {
                 type="email"
                 variant="outline"
                 placeholder="Email ID"
-                bgColor="white"
+                bgColor={boxBg}
                 rounded="xl"
                 required
               />
@@ -126,7 +135,7 @@ const Register = () => {
                 type="password"
                 variant="outline"
                 placeholder="Choose New Password"
-                bgColor="white"
+                bgColor={boxBg}
                 rounded="xl"
                 required
               />
@@ -136,7 +145,7 @@ const Register = () => {
                 type="password"
                 variant="outline"
                 placeholder="Confirm Password"
-                bgColor="white"
+                bgColor={boxBg}
                 rounded="xl"
                 required
               />
@@ -150,7 +159,7 @@ const Register = () => {
                   type="number"
                   variant="outline"
                   placeholder="Mobile Number (Status Update)"
-                  bgColor="white"
+                  bgColor={boxBg}
                   rounded="xl"
                   required
                 />
@@ -160,20 +169,20 @@ const Register = () => {
               <RadioGroup defaultValue="2">
                 <Stack spacing={2} direction="row">
                   <Text fontSize="md">Gender</Text>
-                  <Radio colorScheme="red" value="1">
+                  <Radio  value="1">
                     Male
                   </Radio>
-                  <Radio colorScheme="red" value="2">
+                  <Radio  value="2">
                     Female
                   </Radio>
-                  <Radio colorScheme="red" value="3">
+                  <Radio  value="3">
                     Other
                   </Radio>
                 </Stack>
               </RadioGroup>
             </GridItem>
             <GridItem colSpan={2}>
-              <Button w="100%" colorScheme="teal" borderRadius={2}>
+              <Button w="100%" colorScheme={buttonBg} borderRadius={2}>
                 Register
               </Button>
             </GridItem>
@@ -183,7 +192,7 @@ const Register = () => {
               query="login"
               styles={{
                 cursor: "pointer",
-                color: "red",
+                color: textColor,
                 textDecoration: "underline",
               }}
             >

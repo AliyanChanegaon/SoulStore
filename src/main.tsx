@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.js";
-
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Provider } from "react-redux";
-import { store } from "./store.js";
+import AppContextProvider from "./context/app-context.js";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+
   <ChakraProvider>
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AppContextProvider>
         <App />
-      </BrowserRouter>
-    </Provider>
+      </AppContextProvider>
+    </BrowserRouter>
   </ChakraProvider>
+  
 );
