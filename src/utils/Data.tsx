@@ -289,6 +289,49 @@ export const mensItem: Array<ProductModel> = [
   },
 ];
 
+export const MensData: DataModel = {
+  sliderImages: [
+    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/1.png",
+    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/2.png",
+    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/3.png",
+  ],
+
+  breadcrumbData: { path: "men", page: "Mens-Section" },
+  mensItem: mensItem,
+
+  options: {
+    product: [
+      "T-shirts",
+      "Shirts",
+      "Oversized T-shirts",
+      "joggers",
+      "jeans",
+      "Polos",
+      "Supima",
+    ],
+
+    size: [
+      "XXS",
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL",
+      "XXXL",
+      "4-5Y",
+      "5-6Y",
+      "6-7Y",
+      "7-8Y",
+      "8-9Y",
+      "9-10Y",
+      "10-11Y",
+      "11-12Y",
+      "12-14Y",
+    ],
+  },
+};
+
 export const womensItem: Array<ProductModel> = [
   {
     id: 20,
@@ -517,6 +560,34 @@ export const womensItem: Array<ProductModel> = [
   },
 ];
 
+export const WomensData: DataModel = {
+  sliderImages: [
+    "./src/img/Womens/Womens-Productpage-Img's/Top-slider/1.png",
+    "./src/img/Womens/Womens-Productpage-Img's/Top-slider/2.png",
+    "./src/img/Womens/Womens-Productpage-Img's/Top-slider/3.png",
+  ],
+
+  breadcrumbData: { path: "women", page: "Womens-Section" },
+  mensItem: womensItem,
+
+  options: {
+    product: [
+      "Women Oversized Cropped Shirts",
+      "Women Boyfriend Shirts",
+      "Women Boxy Fit Shirts",
+      "Denim Shirts",
+      "Women Co-ord Sets",
+      "Women Dresses",
+      "Skater Dresses",
+      "MSweatshirt Dresses",
+      "Women Sweater Dresses",
+      "Polo Dresses",
+    ],
+
+    size: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+  },
+};
+
 export const kidsItem: Array<ProductModel> = [
   {
     id: 35,
@@ -698,36 +769,27 @@ export const kidsItem: Array<ProductModel> = [
   },
 ];
 
-export const MensData: DataModel = {
-  sliderImages: [
-    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/1.png",
-    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/2.png",
-    "./src/img/Mens/Mens-Productpage-Img's/Top-slider/3.png",
-  ],
-
-  breadcrumbData: [{ path: "mens" }, { page: "Mens-Section" }],
-  mensItem: mensItem,
+export const KidsData: DataModel = {
+  breadcrumbData: { path: "kid", page: "Kids-Section" },
+  mensItem: kidsItem,
 
   options: {
     product: [
-      "T-shirts",
-      "Shirts",
-      "Oversized T-shirts",
-      "joggers",
-      "jeans",
-      "Polos",
-      "Supima",
+      "Boys Cotton Oversized T-Shirts",
+      "Girls Cotton Crop Tops",
+      "Boys Cotton T-Shirts",
+      "Girls Cotton Hoodies",
+      "Boys Cotton Sweatshirts",
+      "Boys Puffer Jackets",
+      "Boys Cotton Co-ord Sets",
+      "Girls Cotton T-Shirts",
+      "Girls Cotton Full Sleeve T-Shirts",
+      "Girls Cotton Sweatshirts",
     ],
 
     size: [
-      "XXS",
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL",
-      "XXXL",
+      "2-3Y",
+      "3-4Y",
       "4-5Y",
       "5-6Y",
       "6-7Y",

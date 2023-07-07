@@ -66,6 +66,7 @@ const Category = (data: sliderProp) => {
                       colSpan={[1, +value[1]]}
                       overflow="hidden"
                     >
+                         <Link to={"/womens-product"}>
                       <Image
                         src={value[0]}
                         cursor="pointer"
@@ -73,6 +74,7 @@ const Category = (data: sliderProp) => {
                         w="100%"
                         _hover={{ transform: "scale(1.1)" }}
                       />
+                      </Link>
                     </GridItem>
                   );
                 })}
@@ -96,6 +98,7 @@ const Category = (data: sliderProp) => {
                       colSpan={2}
                       overflow="hidden"
                     >
+                        <Link to={"/kids-product"}>
                       <Image
                         src={el}
                         cursor="pointer"
@@ -103,6 +106,7 @@ const Category = (data: sliderProp) => {
                         w="100%"
                         _hover={{ transform: "scale(1.1)" }}
                       />
+                      </Link>
                     </GridItem>
                   );
                 })}

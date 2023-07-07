@@ -18,10 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FilterOptionsModel } from "../../../utils/model/filter-options-model";
+import SearchInput from "./search-input";
 
 const LeftFilters = (data: { data: FilterOptionsModel }) => {
   console.log(data);
-  let newArr = data;
 
   const [sliderValue, setSliderValue] = useState(499);
   const color = useColorModeValue("#58595b", "white");
@@ -30,9 +30,9 @@ const LeftFilters = (data: { data: FilterOptionsModel }) => {
     <Stack color={color} boxShadow="rgba(0, 0, 0, 0.15) 2.6px 2.6px 2.6px">
       <Accordion allowToggle>
         {data?.data &&
-          Object.entries(data?.data)?.map((el) => {
+          Object.entries(data?.data)?.map((el, idx) => {
             return (
-              <AccordionItem>
+              <AccordionItem key={idx}>
                 <Text as="h2">
                   <AccordionButton>
                     <Box
@@ -48,15 +48,12 @@ const LeftFilters = (data: { data: FilterOptionsModel }) => {
                   </AccordionButton>
                 </Text>
                 <AccordionPanel pb={4} display="flex" flexDirection="column">
-                  <Input placeholder={`Search ${el[0]}`} />
-                  {el[1]?.map((option) => (
-                    <Checkbox colorScheme="green">{option}</Checkbox>
-                  ))}
+                  <SearchInput name={el[0]} options={el[1]} />
                 </AccordionPanel>
               </AccordionItem>
             );
           })}
-        
+
         <AccordionItem>
           <h2>
             <AccordionButton>
@@ -107,7 +104,8 @@ const LeftFilters = (data: { data: FilterOptionsModel }) => {
 };
 
 export default LeftFilters;
-{/* <AccordionItem>
+{
+  /* <AccordionItem>
           <h2>
             <AccordionButton>
               <Box
@@ -218,4 +216,5 @@ export default LeftFilters;
               </Slider>
             </Box>
           </AccordionPanel>
-        </AccordionItem> */}
+        </AccordionItem> */
+}

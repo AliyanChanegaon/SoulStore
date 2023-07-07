@@ -4,19 +4,21 @@ import LeftFilters from "../product-page-components/left-filters";
 
 import TopSlider from "../../top-slider";
 import ProductList from "./product-list";
-import { useLocation } from "react-router-dom";
+
 import { DataModel } from "../../../utils/model/data-model";
 
 export const ProductPage = (data: DataModel) => {
-  console.log(data);
+  console.log(data.breadcrumbData.page);
   // const refLoc = useLocation();
   // console.log(refLoc);
 
   return (
     <VStack maxW="1400px!important" w="100%" flex={5}>
-      <Stack maxW="1400px!important" w="100%">
-        <TopSlider data={data?.sliderImages} collection="mens-TopSection" />
-      </Stack>
+      {data?.sliderImages && (
+        <Stack maxW="1400px!important" w="100%">
+          <TopSlider data={data!.sliderImages} collection="mens-TopSection" />
+        </Stack>
+      )}
 
       <HStack w="100%" flex={5}>
         <StackItem flex={1}>
@@ -24,7 +26,7 @@ export const ProductPage = (data: DataModel) => {
         </StackItem>
 
         <StackItem flex={4}>
-          <ProductHeaders />
+          <ProductHeaders data={data?.breadcrumbData} />
         </StackItem>
       </HStack>
 
@@ -33,7 +35,7 @@ export const ProductPage = (data: DataModel) => {
           <LeftFilters data={data?.options} />
         </StackItem>
         <StackItem flex={4}>
-           <ProductList data={data?.mensItem} /> 
+          <ProductList data={data?.mensItem} />
         </StackItem>
       </Stack>
 
