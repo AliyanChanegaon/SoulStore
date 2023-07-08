@@ -119,8 +119,8 @@ export default function Footer() {
             <Text fontWeight="bolder"> EXPERIENCE THE SOULED STORE APP</Text>
           </Stack>
           <Stack flexDirection="row">
-            <Image h={10} src="src\img\Footer-images\appstore.png" />
-            <Image h={10} src="src\img\Footer-images\playstore.png" />
+            <Image h={10} src="public\img\Footer-images\appstore.png" />
+            <Image h={10} src="public\img\Footer-images\playstore.png" />
           </Stack>
         </HStack>
         <HStack

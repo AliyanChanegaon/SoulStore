@@ -6,17 +6,20 @@ import {
   Spacer,
   Stack,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
-const ProductHeaders = (data: {
-  data: { path: string ,page: string };
-}) => {
+function ProductHeaders(data: { data: { path: string; page: string } }) {
+
+  const color = useColorModeValue("red.500", "#2a9df4");
+
+
   
   return (
     <Stack flex={4}>
       <Stack>
-        <Breadcrumb>
-          <BreadcrumbItem>
+        <Breadcrumb fontSize={12}>
+          <BreadcrumbItem _hover={{border:"none"}} >
             <BreadcrumbLink href={`/${data.data.path}`}>
               {data?.data?.path.charAt(0).toUpperCase() +
                 data?.data?.path.slice(1)}
@@ -41,6 +44,6 @@ const ProductHeaders = (data: {
       </Stack>
     </Stack>
   );
-};
+}
 
 export default ProductHeaders;

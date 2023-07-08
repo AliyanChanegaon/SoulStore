@@ -9,6 +9,7 @@ import Register from "../pages/register";
 import MensProduct from "../pages/mens-product";
 import WomensProduct from "../pages/womens-product";
 import KidsProduct from "../pages/kids-product";
+import SingleProductPage from "../components/smallcomponents/single-product-page/single-product-page";
 
 const Allroutes = () => {
   return (
@@ -23,6 +24,7 @@ const Allroutes = () => {
       <Route path="/mens-product" element={<MensProduct />} />
       <Route path="/womens-product" element={<WomensProduct />} />
       <Route path="/kids-product" element={<KidsProduct />} />
+      <Route path="/product/:id" element={<SingleProductPage />} />
     </Routes>
   );
 };

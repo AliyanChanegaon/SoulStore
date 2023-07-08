@@ -101,15 +101,15 @@ export default function Navbar() {
           right="4%"
         >
           <NavLink to={"/"} end>
-            <Image height="25px" src="\src\img\icons\search.png" />
+            <Image height="25px" src="\public\img\icons\search.png" />
           </NavLink>
 
           <NavLink to={"/wishlist"} end>
-            <Image height="25px" src="\src\img\icons\heart.png" />
+            <Image height="25px" src="\public\img\icons\heart.png" />
           </NavLink>
 
           <NavLink to={"/cart"} end>
-            <Image height="25px" src="\src\img\icons\cart.png" />
+            <Image height="25px" src="\public\img\icons\cart.png" />
           </NavLink>
         </Stack>
         <Flex

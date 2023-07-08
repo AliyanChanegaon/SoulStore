@@ -4,36 +4,36 @@ import { officialMerchandise } from "./men";
 import Category from "../components/category";
 
 const sliderImages = [
-  "./src/img/Kids/Kids-Topseller/1.png",
-  "./src/img/Kids/Kids-Topseller/2.png",
-  "./src/img/Kids/Kids-Topseller/3.png",
-  "./src/img/Kids/Kids-Topseller/4.png",
-  "./src/img/Kids/Kids-Topseller/5.png",
+  "/img/Kids/Kids-Topseller/1.png",
+  "/img/Kids/Kids-Topseller/2.png",
+  "/img/Kids/Kids-Topseller/3.png",
+  "/img/Kids/Kids-Topseller/4.png",
+  "/img/Kids/Kids-Topseller/5.png",
 ];
 
 const collectionItems = [
-  "./src/img/Kids/Kids-ShopByAge/1.png",
-  "./src/img/Kids/Kids-ShopByAge/2.png",
-  "./src/img/Kids/Kids-ShopByAge/3.png",
-  "./src/img/Kids/Kids-ShopByAge/4.png",
+  "/img/Kids/Kids-ShopByAge/1.png",
+  "/img/Kids/Kids-ShopByAge/2.png",
+  "/img/Kids/Kids-ShopByAge/3.png",
+  "/img/Kids/Kids-ShopByAge/4.png",
 ];
 
 const ShopItems = [
-  "./src/img/Kids/Kids-ShopByPrice/1.png",
-  "./src/img/Kids/Kids-ShopByPrice/2.png",
-  "./src/img/Kids/Kids-ShopByPrice/3.png",
-  "./src/img/Kids/Kids-ShopByPrice/4.png",
+  "/img/Kids/Kids-ShopByPrice/1.png",
+  "/img/Kids/Kids-ShopByPrice/2.png",
+  "/img/Kids/Kids-ShopByPrice/3.png",
+  "/img/Kids/Kids-ShopByPrice/4.png",
 ];
 
 const categoryItems = [
-  "./src/img/Kids/Kids-Category/1.png",
-  "./src/img/Kids/Kids-Category/2.png",
-  "./src/img/Kids/Kids-Category/3.png",
-  "./src/img/Kids/Kids-Category/4.png",
-  "./src/img/Kids/Kids-Category/5.png",
-  "./src/img/Kids/Kids-Category/6.png",
-  "./src/img/Kids/Kids-Category/7.png",
-  "./src/img/Kids/Kids-Category/8.png",
+  "/img/Kids/Kids-Category/1.png",
+  "/img/Kids/Kids-Category/2.png",
+  "/img/Kids/Kids-Category/3.png",
+  "/img/Kids/Kids-Category/4.png",
+  "/img/Kids/Kids-Category/5.png",
+  "/img/Kids/Kids-Category/6.png",
+  "/img/Kids/Kids-Category/7.png",
+  "/img/Kids/Kids-Category/8.png",
 ];
 
 export default function Kid() {

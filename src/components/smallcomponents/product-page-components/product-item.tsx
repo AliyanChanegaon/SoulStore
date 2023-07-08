@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { ProductModel } from "../../../utils/model/product-data-model";
+import { Link } from "react-router-dom";
 
 const ProductItem = (data: { data: ProductModel }) => {
  
@@ -52,6 +53,7 @@ const ProductItem = (data: { data: ProductModel }) => {
 
   const value = data?.data?.price.split(" ");
   return (
+    <Link to={`/product/${data?.data?.id}`}>
     <Stack
       fontSize="sm"
       fontWeight="500"
@@ -61,6 +63,7 @@ const ProductItem = (data: { data: ProductModel }) => {
       cursor="pointer"
       position="relative"
       h="100%"
+    
     >
       <Circle
         border="2px solid"
@@ -99,6 +102,7 @@ const ProductItem = (data: { data: ProductModel }) => {
         )}
       </Stack>
     </Stack>
+    </Link>
   );
 };
 

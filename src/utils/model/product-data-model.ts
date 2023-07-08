@@ -7,6 +7,7 @@ export type ProductModel ={
     price: string;
     quantity: number;
     moreImage: string[];
+    sizes: string[];
   }
 
   

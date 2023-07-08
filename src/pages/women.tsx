@@ -5,83 +5,83 @@ import { officialMerchandise } from "./men";
 import TopSeller from "../components/smallcomponents/top-seller";
 
 const sliderImages = [
-  "./src/img/Womens/Womens-slider/1.png",
-  "./src/img/Womens/Womens-slider/2.png",
-  "./src/img/Womens/Womens-slider/3.png",
-  "./src/img/Womens/Womens-slider/4.png",
-  "./src/img/Womens/Womens-slider/5.png",
+  "/img/Womens/Womens-slider/1.png",
+  "/img/Womens/Womens-slider/2.png",
+  "/img/Womens/Womens-slider/3.png",
+  "/img/Womens/Womens-slider/4.png",
+  "/img/Womens/Womens-slider/5.png",
 ];
 
 const collectionItems = [
-  "./src/img/Womens/Womens-collection/1.png",
-  "./src/img/Womens/Womens-collection/2.png",
-  "./src/img/Womens/Womens-collection/3.png",
-  "./src/img/Womens/Womens-collection/4.png",
-  "./src/img/Womens/Womens-collection/5.png",
-  "./src/img/Womens/Womens-collection/6.png",
+  "/img/Womens/Womens-collection/1.png",
+  "/img/Womens/Womens-collection/2.png",
+  "/img/Womens/Womens-collection/3.png",
+  "/img/Womens/Womens-collection/4.png",
+  "/img/Womens/Womens-collection/5.png",
+  "/img/Womens/Womens-collection/6.png",
 ];
 
 const categoryItems = [
-  "./src/img/Womens/Womens-Category/1.png 4",
-  "./src/img/Womens/Womens-Category/2.png 4",
-  "./src/img/Womens/Womens-Category/3.png 4",
-  "./src/img/Womens/Womens-Category/4.png 4",
-  "./src/img/Womens/Womens-Category/5.png 4",
-  "./src/img/Womens/Womens-Category/6.png 4",
-  "./src/img/Womens/Womens-Category/7.png 3",
-  "./src/img/Womens/Womens-Category/8.png 3",
-  "./src/img/Womens/Womens-Category/9.png 3",
-  "./src/img/Womens/Womens-Category/10.png 3",
+  "/img/Womens/Womens-Category/1.png 4",
+  "/img/Womens/Womens-Category/2.png 4",
+  "/img/Womens/Womens-Category/3.png 4",
+  "/img/Womens/Womens-Category/4.png 4",
+  "/img/Womens/Womens-Category/5.png 4",
+  "/img/Womens/Womens-Category/6.png 4",
+  "/img/Womens/Womens-Category/7.png 3",
+  "/img/Womens/Womens-Category/8.png 3",
+  "/img/Womens/Womens-Category/9.png 3",
+  "/img/Womens/Womens-Category/10.png 3",
 ];
 
 const ShopItems = [
-  "./src/img/Womens/Womens-ShopByColor/1.png",
-  "./src/img/Womens/Womens-ShopByColor/2.png",
-  "./src/img/Womens/Womens-ShopByColor/3.png",
-  "./src/img/Womens/Womens-ShopByColor/4.png",
-  "./src/img/Womens/Womens-ShopByColor/5.png",
-  "./src/img/Womens/Womens-ShopByColor/6.png",
+  "/img/Womens/Womens-ShopByColor/1.png",
+  "/img/Womens/Womens-ShopByColor/2.png",
+  "/img/Womens/Womens-ShopByColor/3.png",
+  "/img/Womens/Womens-ShopByColor/4.png",
+  "/img/Womens/Womens-ShopByColor/5.png",
+  "/img/Womens/Womens-ShopByColor/6.png",
 ];
 
 const topSellerImg = [
   {
-    img: "./src/img/Womens/Womens-Topseller/1.png",
+    img: "/img/Womens/Womens-Topseller/1.png",
     name: "Solids: Off White",
     type: "Women Dresses",
     price: "1903",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/2.png",
+    img: "/img/Womens/Womens-Topseller/2.png",
     name: "Solids: Fusion Coral",
     type: "Women Boyfriend Shirts",
     price: "1343",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/3.png",
+    img: "/img/Womens/Womens-Topseller/3.png",
     name: "Parachute Pants: Hawaiian Surf",
     type: "Women pants",
     price: "1679",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/4.png",
+    img: "/img/Womens/Womens-Topseller/4.png",
     name: "Solids: Light Olive",
     type: "Women Dresses",
     price: "1903",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/5.png",
+    img: "/img/Womens/Womens-Topseller/5.png",
     name: "Reality Sucks",
     type: "Women Cargo Joggers",
     price: "1455",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/6.png",
+    img: "/img/Womens/Womens-Topseller/6.png",
     name: "TSS Originals: Indie Stripes",
     type: "Women Playsuit",
     price: "1455",
   },
   {
-    img: "./src/img/Womens/Womens-Topseller/7.png",
+    img: "/img/Womens/Womens-Topseller/7.png",
     name: "Solids: Papaya Set",
     type: "Women's Co-ord Set",
     price: "1791 2127 16%",
