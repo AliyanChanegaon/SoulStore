@@ -85,14 +85,14 @@ const Login = () => {
             <ButtonGroup p={3} size="sm" isAttached variant="outline">
               <IconButton
                 aria-label="Add to friends"
-                icon={<Image w={5} src=".\src\img\facebook.png" />}
+                icon={<Image w={5} src="\img\facebook.png" />}
               />
               <Button>Facebook</Button>
             </ButtonGroup>
             <ButtonGroup p={3} size="sm" isAttached variant="outline">
               <IconButton
                 aria-label="Add to friends"
-                icon={<Image w={5} src=".\src\img\google.png" />}
+                icon={<Image w={5} src="\img\google.png" />}
               />
               <Button>Google</Button>
             </ButtonGroup>

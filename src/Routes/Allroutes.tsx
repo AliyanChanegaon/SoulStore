@@ -10,6 +10,7 @@ import MensProduct from "../pages/mens-product";
 import WomensProduct from "../pages/womens-product";
 import KidsProduct from "../pages/kids-product";
 import SingleProductPage from "../components/smallcomponents/single-product-page/single-product-page";
+import PageNotFound from "../pages/page-not-found";
 
 const Allroutes = () => {
   return (
@@ -18,13 +19,14 @@ const Allroutes = () => {
       <Route path="/women" element={<Women />} />
       <Route path="/kid" element={<Kid />} />
       <Route path="/wishlist" element={<Wishlist />} />
-      <Route path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/mens-product" element={<MensProduct />} />
       <Route path="/womens-product" element={<WomensProduct />} />
       <Route path="/kids-product" element={<KidsProduct />} />
       <Route path="/:page/product/:id" element={<SingleProductPage />} />
+      <Route path="/cart" element={<Cart/>}/>
+      <Route path="*" element={<PageNotFound/>} /> 
     </Routes>
   );
 };
