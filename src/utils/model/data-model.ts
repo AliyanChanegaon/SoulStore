@@ -3,7 +3,7 @@ import { ProductModel } from "./product-data-model";
 
 export type DataModel = {
     breadcrumbData: { path: string ,page: string };
-    mensItem: Array<ProductModel>;
+    products: Array<ProductModel>;
     options: FilterOptionsModel;
     sliderImages?: Array<string> ;
   };

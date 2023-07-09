@@ -11,7 +11,7 @@ useEffect(()=>{
 
     return (
         <VStack maxW="1400px!important" w="100%">
-          <ProductPage {...KidsData} />
+          <ProductPage {...KidsData}  />
         </VStack>
       );
 }

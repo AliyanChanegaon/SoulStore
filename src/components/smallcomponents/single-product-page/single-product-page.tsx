@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { mensItem, womensItem, kidsItem } from "../../../utils/Data";
 import { ProductModel } from "../../../utils/model/product-data-model";
 import {
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Button,
-  Center,
+  Box,
   Divider,
   HStack,
   Image,
@@ -15,28 +19,44 @@ import {
   VStack,
   useColorModeValue,
   useToast,
+  Accordion,
+  Highlight,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { BiShoppingBag } from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
- 
-
 
 const SingleProductPage = () => {
   const [data, setData] = useState<ProductModel>();
   const [defaultImg, setDefaultImg] = useState("");
   const [isButLoading, setIsButLoading] = useState<boolean>(false);
+  const [isWishlistLoading, setIsWishlistLoading] = useState<boolean>(false);
+  const [wishlistbutton, setWishlistbutton] = useState<boolean>(true);
   const [bagbutton, setbagbutton] = useState<boolean>(true);
-  const { id } = useParams();
+  const [values, SetValues] = useState<Array<string>>();
+  const [sizes, setsizes] = useState<Array<string>>([
+    "XXS",
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "XXXL",
+  ]);
+  const { id, page } = useParams();
   const toast = useToast();
   const color = useColorModeValue("black", "white");
+  const buttonBgColor = useColorModeValue("red.500", "#2a9df4");
+  const buttonBgColorHover = useColorModeValue("#c92e2e", "#0686e7");
+  const buttonColor = useColorModeValue("white", "black");
 
-  const handleClick = () => {
-    setIsButLoading(true);
+  const handleClick = (value: string) => {
+    value == "Cart" ? setIsButLoading(true) : setIsWishlistLoading(true);
 
     setTimeout(() => {
       toast({
-        title: "Added To Cart.",
+        title: `Added To ${value}.`,
 
         description: "shop more or go to cart.",
 
@@ -44,17 +64,28 @@ const SingleProductPage = () => {
         isClosable: true,
       });
 
-      setIsButLoading(false);
+      value == "Cart" ? setIsButLoading(false) : setIsWishlistLoading(false);
       // handleCart(data[0]);
-      setbagbutton(false);
+      value == "Cart" ? setbagbutton(false) : setWishlistbutton(false);
+
       // console.log(data[0]);
     }, 1500);
   };
 
-  var value:any;
-
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (page === "kid") {
+      setsizes([
+        "2-3Y",
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-7Y",
+        "7-8Y",
+        "8-9Y",
+        "9-10Y",
+      ]);
+    }
     let productData = [...mensItem, ...womensItem, ...kidsItem].find(
       (el: any) => el.id == id
     );
@@ -62,48 +93,53 @@ const SingleProductPage = () => {
     if (productData) {
       setData(productData);
       setDefaultImg(productData?.Display_image);
-      console.log(productData.sizes)
-      value = data?.price.split(" ");
+      console.log(productData.sizes[0].length);
+
+      SetValues(productData.price.split(" "));
     }
   }, []);
 
   return (
     <Stack
       w="full"
-      margin="auto"
+      marginY="auto"
+      
       alignSelf="center"
       justifyContent="center"
       direction={{ base: "column", md: "row" }}
       spacing={{ base: 0, sm: 30 }}
       padding={5}
       justify="center"
-      style={{ marginTop: "150px", marginBottom: "50px" }}
+      
+      
     >
       {data && (
         <>
           <Stack
-            flexDirection={{ base: "column-reverse", md: "row" }}
+            flexDirection={{ base: "column-reverse", md: "column-reverse", lg: "row" }}
+           
             spacing={5}
             padding={5}
+            paddingX={{md:2,lg:5}}
+            gap={{md:5,lg:0}}
+            maxW={{md:"280px",lg:"none"}}
+            
           >
             <Stack
-              direction={{ base: "row", md: "column" }}
-              maxH="500px"
-              padding={3}
-            >
-              <ChevronDownIcon
-                display={{ base: "none", md: "block" }}
-                boxSize="30px"
-                color="gray.500"
-                cursor="pointer"
-              />
+              direction={{ base: "row", md: "row",lg: "column"  }}
 
+              
+              padding={3}
+              pl={0}
+              
+            >
               {data?.moreImage.map((img: string, idx: number) => (
                 <Image
                   key={idx}
                   borderRadius={5}
                   alt={data.name}
                   maxW={"70"}
+                  
                   minW="50px"
                   objectFit="cover"
                   src={img}
@@ -111,30 +147,28 @@ const SingleProductPage = () => {
                   cursor="pointer"
                 />
               ))}
-              <ChevronUpIcon
-                display={{ base: "none", md: "block" }}
-                boxSize="30px"
-                color="gray.500"
-                cursor="pointer"
-              />
             </Stack>
 
             <Stack>
               <Image
                 borderRadius={15}
                 src={defaultImg}
-                maxH="500px"
+                maxH={{md:"320px",lg:"420px"}}
                 minW="200px"
+                maxW={{md:"280px",lg:"none"}}
               />
             </Stack>
           </Stack>
 
-          <VStack
+          <VStack 
             w={{ base: "full", md: "50%" }}
             h={{ base: "full" }}
-            padding={{ base: 5, md: 8 }}
+            
+            paddingX={{base: 5, md: 0,lg:8}}
+            paddingTop={{ md: 4}}
+           
             align="revert-layer"
-            spacing={5}
+            spacing={{md:3,lg:5}}
           >
             <Stack m={0} p={0} gap={0}>
               <Text
@@ -144,109 +178,130 @@ const SingleProductPage = () => {
               >
                 {data.name}
               </Text>
-              <Text fontSize={{ base: "10px", md: "15px" }} color="gray.500">
+
+              <Text fontSize={{ base: "10px", md: "15px" }} color="grey.500">
                 {data.Category}
               </Text>
             </Stack>
-
+            <Divider color="darkgrey" border="1px solid" width="90%" />
             <Stack>
-              <HStack alignContent="center">
-                <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
-                  ₹{data.price}
-                </Text>
+              {values && (
+                <HStack alignContent="center">
+                  <Text fontWeight="bold" fontSize={{ base: "2xl", md: "3xl" }}>
+                    ₹{values[0]}
+                  </Text>
 
-                <Text as="s" marginLeft={4} fontSize="xl">
-                  90890{/* ₹{data[0].strikeprice} */}
-                </Text>
-              </HStack>
+                  {values[1] && (
+                    <Stack flexDirection="row">
+                      <Text textDecoration="line-through">{`₹ ${values[1]}`}</Text>
+                      <Text color="red.800">{values[2]} OFF</Text>
+                    </Stack>
+                  )}
+                </HStack>
+              )}
               <Text>inclusive of all taxes</Text>
             </Stack>
 
-            <Divider />
+            
 
-            <Text>
-              TriBe members get an extra discount of ₹20 and FREE shipping.Learn
-              more
-            </Text>
-
-            <Divider />
-
+           
             <Text fontWeight="extrabold">SELECT SIZE</Text>
 
-            <HStack spacing={5}>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                border="1px solid"
-                color="black"
-              >
-                S
-              </Center>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                border="1px solid"
-                color="black"
-              >
-                M
-              </Center>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                border="1px solid"
-                color="black"
-              >
-                L
-              </Center>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                bg="tomato"
-                color="white"
-              >
-                XL
-              </Center>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                border="1px solid"
-                color="black"
-              >
-                2XL
-              </Center>
-              <Center
-                w={{ base: "40px", lg: "50px" }}
-                h={{ base: "40px", lg: "50px" }}
-                fontSize={{ base: "sm", lg: "xl" }}
-                border="1px solid"
-                color="black"
-              >
-                3XL
-              </Center>
+            <HStack spacing={5} flexWrap="wrap">
+              {sizes.map((el, idx) => (
+                <Stack key={idx} p={0}>
+                  <Button
+                    w={{ base: "40px", lg: "50px" }}
+                    // h={{ base: "40px", lg: "50px" }}
+
+                    fontSize={{ base: "10px", lg: "15px" }}
+                    variant="outline"
+                    border="1px solid"
+                    _hover={{ bgColor: "none" }}
+                    // color={data.sizes.includes(el) ? "blue" : "black"}
+                    cursor={data.sizes.includes(el) ? "pointer" : "no-drop"}
+                    size="xs"
+                    px={3}
+                    borderRadius={12}
+                    position="relative"
+                    overflow="hidden"
+                    color={data.sizes.includes(el) ? { color } : "grey"}
+                  >
+                    <Divider
+                      transform="rotate(165deg)"
+                      border="1px solid rgb(255, 0, 0)"
+                      width={{ base: "40px", lg: "50px" }}
+                      display={data.sizes.includes(el) ? "none" : "inline"}
+                      position="absolute"
+                      top="44%"
+                      left="-10%"
+                    />
+                    {el}
+                  </Button>
+                </Stack>
+              ))}
             </HStack>
 
-            <Text>
-              Garment: Chest (in Inch): 44.0 Front Length (in Inch): 30.0 Sleeve
-              Length (in Inch): 25.5
-            </Text>
+          
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      <b>Product Details</b>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <b>Material & Care:</b>
+                  <Text>100% Cotton</Text>
+                  <Text>Machine Wash</Text>
+                  <br />
+                  <b>Country of Origin:</b>
+                  <span> India (and proud)</span>
+                  <br />
+                  <br />
+                  <b>Manufactured & Sold By:</b>
+                  <Text>The Souled Store Pvt. Ltd.</Text>
+                  <Text>224, Tantia Jogani Industrial Premises</Text>
+                  <Text>J.R. Boricha Marg</Text>
+                  <Text>Lower Parel (E)</Text>
+                  <Text>Mumbai - 11</Text>
+                  <u>connect@thesouledstore.com</u>
+                </AccordionPanel>
+              </AccordionItem>
 
-            <Divider />
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      <b>Product Description</b>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Text> {`Shop for latest ${data.Category}  Online`}</Text>
+                  <br />
+                  <Text>MRP: Rs. 999/- incl. of all taxes.</Text>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
 
-            <HStack w="full">
+            <HStack w="full" justify={{ base: "center",md:"flex-start",lg:"flex-start" }}>
               <Button
-                onClick={() => handleClick()}
-                fontSize="x-large"
-                padding={8}
-                w="full"
-                colorScheme="yellow"
+                onClick={() => handleClick("Cart")}
+                fontSize="md"
+                padding={4}
+                _hover={{ bgColor: { buttonBgColorHover } }}
+                bgColor={buttonBgColor}
+                color={buttonColor}
+                borderRadius="none"
+                w={{ base: "50%", md: "65%" }}
               >
                 <BiShoppingBag
-                  fontSize={{ base: "25px", sm: "25px", md: "3xl" }}
+                  fontSize={{ base: "25px", sm: "25px", md: "md" }}
                 />
 
                 {!isButLoading && bagbutton && "Buy Now"}
@@ -263,13 +318,28 @@ const SingleProductPage = () => {
               </Button>
 
               <Button
-                fontSize={{ base: "25px", sm: "25px", md: "3xl" }}
-                padding={8}
-                w="full"
+                onClick={() => handleClick("Wishlist")}
+                fontSize="md"
+                padding={4}
+                borderRadius="none"
                 colorScheme="teal"
-                variant="outline"
+                w={{ base: "50%", md: "25%" }}
               >
-                <AiOutlineHeart /> WISHLIST
+                <AiOutlineHeart
+                  fontSize={{ base: "25px", sm: "25px", md: "md" }}
+                />
+                {!isWishlistLoading && wishlistbutton && "Wishlist"}
+                {!isWishlistLoading && !wishlistbutton && "ADDED"}
+
+                {isWishlistLoading && (
+                  <Spinner
+                    thickness="4px"
+                    speed="0.55s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="lg"
+                  />
+                )}
               </Button>
             </HStack>
           </VStack>

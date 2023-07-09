@@ -8,7 +8,7 @@ import ProductList from "./product-list";
 import { DataModel } from "../../../utils/model/data-model";
 
 export const ProductPage = (data: DataModel) => {
-  console.log(data.breadcrumbData.page);
+  console.log(data);
   // const refLoc = useLocation();
   // console.log(refLoc);
 
@@ -35,7 +35,7 @@ export const ProductPage = (data: DataModel) => {
           <LeftFilters data={data?.options} />
         </StackItem>
         <StackItem flex={4}>
-          <ProductList data={data?.mensItem} />
+          <ProductList data={data?.products} name={data?.breadcrumbData?.path} />
         </StackItem>
       </Stack>
 

@@ -46,8 +46,8 @@ const TopSeller = (data: dataProp ) => {
             </Text>
             {+value[1] && (
               <Stack flexDirection="row">
-                <Text textDecoration="line-through">₹ {value[1]}</Text>{" "}
-                <Text color="red.800">{value[2]} OFF</Text>{" "}
+                <Text textDecoration="line-through">₹ {value[1]}</Text>
+                <Text color="red.800">{value[2]} OFF</Text>
               </Stack>
             )}
           </Stack>

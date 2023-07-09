@@ -208,7 +208,7 @@ sizes: [ 'XXS', 'XS', 'XXXL', 'S', 'L', 'M' ]
       "/img/Mens/Mens-Productpage-Img's/13.3.png",
       "/img/Mens/Mens-Productpage-Img's/13.4.png"
     ],
-    sizes: [ 'XXXL', 'XXL', 'S', 'XS', 'L', 'M' ]
+    sizes: [ 'XXL', 'S', 'XS', 'L', 'M' ]
   },
   {
     id: 14,
@@ -316,7 +316,7 @@ export const MensData: DataModel = {
   ],
 
   breadcrumbData: { path: "men", page: "Mens-Section" },
-  mensItem: mensItem,
+  products: mensItem,
 
   options: {
     product: [
@@ -593,7 +593,7 @@ export const WomensData: DataModel = {
   ],
 
   breadcrumbData: { path: "women", page: "Womens-Section" },
-  mensItem: womensItem,
+  products: womensItem,
 
   options: {
     product: [
@@ -801,8 +801,7 @@ export const kidsItem: Array<ProductModel> = [
 
 export const KidsData: DataModel = {
   breadcrumbData: { path: "kid", page: "Kids-Section" },
-  mensItem: kidsItem,
-
+  products: kidsItem,
   options: {
     product: [
       "Boys Cotton Oversized T-Shirts",

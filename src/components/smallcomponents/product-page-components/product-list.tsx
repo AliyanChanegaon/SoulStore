@@ -2,7 +2,7 @@ import { Grid } from "@chakra-ui/react";
 import ProductItem from "./product-item";
 import { ProductModel } from "../../../utils/model/product-data-model";
 
-const ProductList = (data: { data: ProductModel[] }) => {
+const ProductList = (data: { data: ProductModel[] , name: string }) => {
  
   return (
     <Grid
@@ -17,7 +17,7 @@ const ProductList = (data: { data: ProductModel[] }) => {
       border="1px solid #ccd4de"
     >
       {data?.data?.map((el, idx) => (
-        <ProductItem key={idx} data={el} />
+        <ProductItem key={idx} data={el} name={data?.name} />
       ))}
     </Grid>
   );

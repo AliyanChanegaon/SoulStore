@@ -12,7 +12,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { ProductModel } from "../../../utils/model/product-data-model";
 import { Link } from "react-router-dom";
 
-const ProductItem = (data: { data: ProductModel }) => {
+const ProductItem = (data: { data: ProductModel , name: string}) => {
  
   const [image, setImage] = useState(data?.data?.Display_image);
   const [wishlist, setWishlist] = useState(true);
@@ -53,7 +53,7 @@ const ProductItem = (data: { data: ProductModel }) => {
 
   const value = data?.data?.price.split(" ");
   return (
-    <Link to={`/product/${data?.data?.id}`}>
+    <Link to={`/${data?.name}/product/${data?.data?.id}`}>
     <Stack
       fontSize="sm"
       fontWeight="500"
