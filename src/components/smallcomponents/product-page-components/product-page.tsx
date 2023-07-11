@@ -39,10 +39,7 @@ export const ProductPage = (data: DataModel) => {
         </StackItem>
       </Stack>
 
-      {/* <Stack>
-        <LeftFilters />
-          <ProductPage />
-        </Stack> */}
+     
     </VStack>
   );
 };

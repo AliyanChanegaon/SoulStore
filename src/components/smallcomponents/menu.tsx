@@ -69,7 +69,7 @@ const MenuBar = (data: menuType) => {
                 ? `repeat(5,1fr)`
                 : `repeat(${Math.ceil((data?.options?.length || 0) / 5)}, 1fr)`
             }
-          >
+          >  
             {data?.options?.map((el, idx) => (
               <MenuItem
                 key={idx}

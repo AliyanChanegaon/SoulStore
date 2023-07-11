@@ -1,11 +1,16 @@
 import { createContext, useState } from "react";
 import { ProductModel } from "../utils/model/product-data-model";
 import { mensItem, womensItem } from "../utils/Data";
+import { useToast } from "@chakra-ui/react";
 
-interface MyContextType {
+export interface MyContextType {
   status: { [key: string]: boolean };
   data: dataItemProp;
+  setData: (value: dataItemProp) => void;
   userData: {};
+  updateList: (value: ProductModel, type: string) => void;
+  RemoveItem: (id: number, type: string) => void;
+  MoveItem: (product: ProductModel, type: string) => void;
 }
 
 const handlingError = {
@@ -14,7 +19,7 @@ const handlingError = {
   isAuth: false,
 };
 
-type dataItemProp = {
+export type dataItemProp = {
   cartData: ProductModel[];
   wishList: ProductModel[];
 };
@@ -137,17 +142,122 @@ const MensData = [
   },
 ];
 
-export const AppContext = createContext<MyContextType | undefined>(undefined);
+export const AppContext = createContext<MyContextType>({
+  status: {},
+  data: dataItem,
+  setData: () => {},
+  userData: {},
+  updateList: () => {},
+  RemoveItem: () => {},
+  MoveItem: () => {},
+});
 const AppContextProvider = ({ children }: any) => {
-
-  const [status, setStatus] = useState<{ [key: string]: boolean }>(handlingError);
-
+  const [status, setStatus] = useState<{ [key: string]: boolean }>(
+    handlingError
+  );
+  const toast = useToast();
   const [data, setData] = useState<dataItemProp>(dataItem);
 
   const [userData, setUserData] = useState<{ ss: 0 }>({ ss: 0 });
 
+  const updateList = (product: ProductModel, type: string) => {
+    if (type == "Cart") {
+      const updatedData = {
+        ...data,
+        wishList: [...data.wishList, product],
+      };
+      setData(updatedData);
+    }
+    if (type == "Wishlist") {
+      if (data.wishList.includes(product)) {
+        toast({
+          title: "Item already exist",
+
+          description: "Please add something else",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+
+        return;
+      }
+
+      toast({
+        title: "Added to wishlist",
+
+        description: "shop more or go to cart.",
+
+        duration: 3000,
+        isClosable: true,
+      });
+
+      const updatedData = {
+        ...data,
+        wishList: [...data.wishList, product],
+      };
+      setData(updatedData);
+    }
+  };
+
+  const RemoveItem = (id: number, type: string) => {
+    // Cart
+
+    if (type === "Cart") {
+
+
+
+      let newArr = data.cartData.filter((el) => el.id != id);
+      
+      const updatedData = {
+        ...data,
+        cartData: newArr,
+      };
+      setData(updatedData);
+    } else {
+      let newArr = data.wishList.filter((el) => el.id != id);
+      const updatedData = {
+        ...data,
+        wishList: newArr,
+      };
+      setData(updatedData);
+    }
+  };
+
+  const MoveItem = (product: ProductModel, type: string) => {
+
+
+    if (type === "To-Wishlist") {
+      let updatedCartData = data.cartData.filter((el) => el.id != product.id);
+
+      setData({
+        cartData: [...updatedCartData],
+        wishList: [...data.wishList, product],
+      });
+    }
+
+
+    if (type === "To-Cart") {
+      let updatedCartData = data.cartData.filter((el) => el.id != product.id);
+
+      setData({
+        wishList: [...updatedCartData],
+        cartData: [...data.cartData, product],
+      });
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ status, userData, data }}>
+    <AppContext.Provider
+      value={{
+        status,
+        userData,
+        data,
+        setData,
+        updateList,
+        RemoveItem,
+        MoveItem,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

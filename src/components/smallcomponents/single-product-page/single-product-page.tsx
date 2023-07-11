@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { mensItem, womensItem, kidsItem } from "../../../utils/Data";
 import { ProductModel } from "../../../utils/model/product-data-model";
 import {
@@ -25,9 +25,11 @@ import {
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { BiShoppingBag } from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
+import { AppContext, MyContextType } from "../../../context/app-context";
 
 const SingleProductPage = () => {
-  const [data, setData] = useState<ProductModel>();
+  const { data, updateList } = useContext<MyContextType>(AppContext);
+  const [itemData, setItemData] = useState<ProductModel>();
   const [defaultImg, setDefaultImg] = useState("");
   const [isButLoading, setIsButLoading] = useState<boolean>(false);
   const [isWishlistLoading, setIsWishlistLoading] = useState<boolean>(false);
@@ -50,10 +52,25 @@ const SingleProductPage = () => {
   const buttonBgColor = useColorModeValue("red.500", "#2a9df4");
   const buttonBgColorHover = useColorModeValue("#c92e2e", "#0686e7");
   const buttonColor = useColorModeValue("white", "black");
+  const Navigate=useNavigate();
 
   const handleClick = (value: string) => {
-    value == "Cart" ? setIsButLoading(true) : setIsWishlistLoading(true);
+    if (value == "Cart") {
+      setIsButLoading(true);
 
+      if (itemData != undefined) {
+        updateList(itemData,"Wishlist");
+      }
+
+      // console.log(data.cartData)
+    } else {
+      setIsWishlistLoading(true);
+      if (itemData != undefined) {
+        updateList(itemData,"Cart");
+      }
+      //setData({...data.cartData , wishList: [ ...data.wishList, itemData]})
+      // console.log(data.wishList)
+    }
     setTimeout(() => {
       toast({
         title: `Added To ${value}.`,
@@ -69,10 +86,20 @@ const SingleProductPage = () => {
       value == "Cart" ? setbagbutton(false) : setWishlistbutton(false);
 
       // console.log(data[0]);
-    }, 1500);
+    }, 1);
   };
+    
+  
+  const checkIsCart = ()=>{
+    console.log()
+  }
+  checkIsCart()
 
   useEffect(() => {
+    // console.log(data.cartData)
+    // console.log(data.wishList)
+ 
+
     window.scrollTo(0, 0);
     if (page === "kid") {
       setsizes([
@@ -91,55 +118,53 @@ const SingleProductPage = () => {
     );
 
     if (productData) {
-      setData(productData);
+      setItemData(productData);
       setDefaultImg(productData?.Display_image);
       console.log(productData.sizes[0].length);
 
       SetValues(productData.price.split(" "));
     }
   }, []);
+  
+
+  
 
   return (
     <Stack
       w="full"
       marginY="auto"
-      
       alignSelf="center"
       justifyContent="center"
       direction={{ base: "column", md: "row" }}
       spacing={{ base: 0, sm: 30 }}
       padding={5}
       justify="center"
-      
-      
     >
-      {data && (
+      {itemData && (
         <>
           <Stack
-            flexDirection={{ base: "column-reverse", md: "column-reverse", lg: "row" }}
-           
+            flexDirection={{
+              base: "column-reverse",
+              md: "column-reverse",
+              lg: "row",
+            }}
             spacing={5}
             padding={5}
-            paddingX={{md:2,lg:5}}
-            gap={{md:5,lg:0}}
-            maxW={{md:"280px",lg:"none"}}
-            
+            paddingX={{ md: 2, lg: 5 }}
+            gap={{ md: 5, lg: 0 }}
+            maxW={{ md: "280px", lg: "none" }}
           >
             <Stack
-              direction={{ base: "row", md: "row",lg: "column"  }}
-
-              
+              direction={{ base: "row", md: "row", lg: "column" }}
               padding={3}
               pl={0}
-              
             >
-              {data?.moreImage.map((img: string, idx: number) => (
+              {itemData?.moreImage.map((img: string, idx: number) => (
                 <Image
                   key={idx}
                   borderRadius={5}
-                  alt={data.name}
+                  alt={itemData.name}
                   maxW={"70"}
-                  
                   minW="50px"
                   objectFit="cover"
                   src={img}
@@ -153,22 +178,20 @@ const SingleProductPage = () => {
               <Image
                 borderRadius={15}
                 src={defaultImg}
-                maxH={{md:"320px",lg:"420px"}}
+                maxH={{ md: "320px", lg: "420px" }}
                 minW="200px"
-                maxW={{md:"280px",lg:"none"}}
+                maxW={{ md: "280px", lg: "none" }}
               />
             </Stack>
           </Stack>
 
-          <VStack 
+          <VStack
             w={{ base: "full", md: "50%" }}
             h={{ base: "full" }}
-            
-            paddingX={{base: 5, md: 0,lg:8}}
-            paddingTop={{ md: 4}}
-           
+            paddingX={{ base: 5, md: 0, lg: 8 }}
+            paddingTop={{ md: 4 }}
             align="revert-layer"
-            spacing={{md:3,lg:5}}
+            spacing={{ md: 3, lg: 5 }}
           >
             <Stack m={0} p={0} gap={0}>
               <Text
@@ -176,11 +199,11 @@ const SingleProductPage = () => {
                 fontWeight="bold"
                 color={color}
               >
-                {data.name}
+                {itemData.name}
               </Text>
 
               <Text fontSize={{ base: "10px", md: "15px" }} color="grey.500">
-                {data.Category}
+                {itemData.Category}
               </Text>
             </Stack>
             <Divider color="darkgrey" border="1px solid" width="90%" />
@@ -202,9 +225,6 @@ const SingleProductPage = () => {
               <Text>inclusive of all taxes</Text>
             </Stack>
 
-            
-
-           
             <Text fontWeight="extrabold">SELECT SIZE</Text>
 
             <HStack spacing={5} flexWrap="wrap">
@@ -218,20 +238,20 @@ const SingleProductPage = () => {
                     variant="outline"
                     border="1px solid"
                     _hover={{ bgColor: "none" }}
-                    // color={data.sizes.includes(el) ? "blue" : "black"}
-                    cursor={data.sizes.includes(el) ? "pointer" : "no-drop"}
+                    // color={itemData.sizes.includes(el) ? "blue" : "black"}
+                    cursor={itemData.sizes.includes(el) ? "pointer" : "no-drop"}
                     size="xs"
                     px={3}
                     borderRadius={12}
                     position="relative"
                     overflow="hidden"
-                    color={data.sizes.includes(el) ? { color } : "grey"}
+                    color={itemData.sizes.includes(el) ? { color } : "grey"}
                   >
                     <Divider
                       transform="rotate(165deg)"
                       border="1px solid rgb(255, 0, 0)"
                       width={{ base: "40px", lg: "50px" }}
-                      display={data.sizes.includes(el) ? "none" : "inline"}
+                      display={itemData.sizes.includes(el) ? "none" : "inline"}
                       position="absolute"
                       top="44%"
                       left="-10%"
@@ -242,7 +262,6 @@ const SingleProductPage = () => {
               ))}
             </HStack>
 
-          
             <Accordion allowToggle>
               <AccordionItem>
                 <h2>
@@ -282,15 +301,34 @@ const SingleProductPage = () => {
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                  <Text> {`Shop for latest ${data.Category}  Online`}</Text>
+                  <Text> {`Shop for latest ${itemData.Category}  Online`}</Text>
                   <br />
                   <Text>MRP: Rs. 999/- incl. of all taxes.</Text>
                 </AccordionPanel>
               </AccordionItem>
             </Accordion>
 
-            <HStack w="full" justify={{ base: "center",md:"flex-start",lg:"flex-start" }}>
-              <Button
+            <HStack
+              w="full"
+              justify={{ base: "center", md: "flex-start", lg: "flex-start" }}
+            >
+          {(data?.cartData?.indexOf(itemData) !== -1) ?
+            <Button
+                onClick={() => Navigate("/cart")}
+                fontSize="md"
+                padding={4}
+                _hover={{ bgColor: { buttonBgColorHover } }}
+                // bgColor={buttonBgColor}
+                colorScheme="teal"
+                variant='outline'
+                borderRadius="none"
+                w={{ base: "50%", md: "65%" }}
+              >
+                
+
+                Go to Cart
+              </Button>
+          :<Button
                 onClick={() => handleClick("Cart")}
                 fontSize="md"
                 padding={4}
@@ -314,8 +352,10 @@ const SingleProductPage = () => {
                     color="blue.500"
                     size="lg"
                   />
+
+
                 )}
-              </Button>
+              </Button>}
 
               <Button
                 onClick={() => handleClick("Wishlist")}
