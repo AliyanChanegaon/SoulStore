@@ -36,6 +36,7 @@ const SingleProductPage = () => {
   const [wishlistbutton, setWishlistbutton] = useState<boolean>(true);
   const [bagbutton, setbagbutton] = useState<boolean>(true);
   const [values, SetValues] = useState<Array<string>>();
+  
   const [sizes, setsizes] = useState<Array<string>>([
     "XXS",
     "XS",
@@ -55,40 +56,37 @@ const SingleProductPage = () => {
   const Navigate=useNavigate();
 
   const handleClick = (value: string) => {
-    if (value == "Cart") {
+ 
+    if (value === "Cart") {
       setIsButLoading(true);
-
-      if (itemData != undefined) {
-        updateList(itemData,"Wishlist");
-      }
-
-      // console.log(data.cartData)
-    } else {
-      setIsWishlistLoading(true);
+      console.log("hiuohi");
       if (itemData != undefined) {
         updateList(itemData,"Cart");
       }
-      //setData({...data.cartData , wishList: [ ...data.wishList, itemData]})
-      // console.log(data.wishList)
+
+      
+    } else {
+      setIsWishlistLoading(true);
+      console.log("hiuohi");
+      if (itemData != undefined) {
+        updateList(itemData,"Wishlist");
+      }
+      
     }
-    setTimeout(() => {
-      toast({
-        title: `Added To ${value}.`,
+    
 
-        description: "shop more or go to cart.",
-
-        duration: 3000,
-        isClosable: true,
-      });
-
-      value == "Cart" ? setIsButLoading(false) : setIsWishlistLoading(false);
+      setTimeout(() => {
+        value === "Cart" ? setIsButLoading(false) : setIsWishlistLoading(false);
       // handleCart(data[0]);
-      value == "Cart" ? setbagbutton(false) : setWishlistbutton(false);
+      value === "Cart" ? setbagbutton(false) : setWishlistbutton(false);
+      }, 1500);
+
+      
 
       // console.log(data[0]);
-    }, 1);
-  };
-    
+   
+  
+  }
   
   const checkIsCart = ()=>{
     console.log()
@@ -96,8 +94,7 @@ const SingleProductPage = () => {
   checkIsCart()
 
   useEffect(() => {
-    // console.log(data.cartData)
-    // console.log(data.wishList)
+   
  
 
     window.scrollTo(0, 0);
@@ -312,7 +309,7 @@ const SingleProductPage = () => {
               w="full"
               justify={{ base: "center", md: "flex-start", lg: "flex-start" }}
             >
-          {(data?.cartData?.indexOf(itemData) !== -1) ?
+          {(data?.cartData?.indexOf(itemData) !== -1) ? 
             <Button
                 onClick={() => Navigate("/cart")}
                 fontSize="md"

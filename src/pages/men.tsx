@@ -140,12 +140,12 @@ const Men = () => {
 
       <VStack gap={4} w="100%">
         <Text align="center">MEMBERSHIP</Text>
-        <Image pr={4} width="94%" src=".\src\img\Membership.png" />
+        <Image pr={4} width="94%" src="\img\Membership.png" />
       </VStack>
 
       <VStack gap={4} w="100%">
         <Text>STRAIGHT OUT OF CELEBRITY CLOSETS</Text>
-        <Image pr={4} width="94%" src=".\src\img\bottomBanner.png" />
+        <Image pr={4} width="94%" src="\img\bottomBanner.png" />
       </VStack>
 
       <VStack gap={4} w="100%">

@@ -164,7 +164,7 @@ const AppContextProvider = ({ children }: any) => {
     if (type == "Cart") {
       const updatedData = {
         ...data,
-        wishList: [...data.wishList, product],
+        cartData: [...data.cartData, product],
       };
       setData(updatedData);
     }

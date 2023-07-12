@@ -180,8 +180,8 @@ sizes: [ 'XXS', 'XS', 'XXXL', 'S', 'L', 'M' ]
   },
   {
     id: 12,
-    Display_image: "/img/Mens/Mens-Productpage-Img's/12.1.png",
-    hover_Image: "/img/Mens/Mens-Productpage-Img's/12.2.png",
+    Display_image: "/img/Mens/Mens-Productpage-Img's/12.2.png",
+    hover_Image: "/img/Mens/Mens-Productpage-Img's/12.1.png",
     name: 'Spider-Man: Comics (Utility)',
     Category: 'Men Cargo Joggers',
     price: '1499',
@@ -196,8 +196,8 @@ sizes: [ 'XXS', 'XS', 'XXXL', 'S', 'L', 'M' ]
   },
   {
     id: 13,
-    Display_image: "/img/Mens/Mens-Productpage-Img's/13.1.png",
-    hover_Image: "/img/Mens/Mens-Productpage-Img's/13.2.png",
+    Display_image: "/img/Mens/Mens-Productpage-Img's/13.2.png",
+    hover_Image: "/img/Mens/Mens-Productpage-Img's/13.1.png",
     name: 'Justice League: Logo',
     Category: 'Men Joggers',
     price: '899',
@@ -260,8 +260,8 @@ sizes: [ 'XXS', 'XS', 'XXXL', 'S', 'L', 'M' ]
   },
   {
     id: 17,
-    Display_image: "/img/Mens/Mens-Productpage-Img's/17.1.png",
-    hover_Image: "/img/Mens/Mens-Productpage-Img's/17.2.png",
+    Display_image: "/img/Mens/Mens-Productpage-Img's/17.2.png",
+    hover_Image: "/img/Mens/Mens-Productpage-Img's/17.1.png",
     name: 'Solids: Mid Blue Wash (Straigh...',
     Category: 'Men Jeans',
     price: '2299',

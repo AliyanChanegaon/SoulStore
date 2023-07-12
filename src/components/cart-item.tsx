@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import React, { RefObject, useContext, useRef, useState } from "react";
@@ -17,11 +18,23 @@ import { ProductModel } from "../utils/model/product-data-model";
 import { Link, useNavigate } from "react-router-dom";
 import StepperFunc from "./smallcomponents/Stepper";
 import { AppContext, MyContextType } from "../context/app-context";
+import { ConfirmationDialog } from "./dialog/confirmation-dialog";
 
 const CartItem = (data: { data: ProductModel }) => {
   const { RemoveItem, MoveItem } = useContext<MyContextType>(AppContext);
   const color = useColorModeValue("#58595b", "white");
   const value = data?.data?.price.split(" ");
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // const removeItemDialog = {
+  //   id: data?.data?.id,
+  //   title: "Remove Item From Cart",
+  //   img: data?.data?.Display_image,
+  //   type: "Cart",
+  //   action: "REMOVE",
+  // };
+
   return (
     <Box
       w="100%"
@@ -123,13 +136,32 @@ const CartItem = (data: { data: ProductModel }) => {
         }}
         mt="10px"
       >
-        <Button variant="outline" onClick={() => RemoveItem(data?.data?.id,"Cart")}>
-          REMOVE
+        <Button variant="outline" onClick={onOpen}>
+          Remove
         </Button>
-        <Button variant="outline" onClick={() => MoveItem(data?.data,"To-Wishlist")}>
+        <Button
+          variant="outline"
+          onClick={() => MoveItem(data?.data, "To-Wishlist")}
+        >
           MOVE TO WISHLIST
         </Button>
       </Stack>
+
+      <ConfirmationDialog
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        confirmationMessage={<Text>Remove Item From Cart</Text>}
+        messageBodyLines={
+          <>
+            <Text>Are you sure you want to remove </Text>
+            <Text>this product from your Cart ?</Text>
+          </>
+        }
+        img={data?.data?.Display_image}
+        type="Cart"
+        onYesClick={() => RemoveItem(data?.data?.id, "Cart")}
+      />
     </Box>
   );
 };
