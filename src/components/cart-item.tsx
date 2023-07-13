@@ -3,20 +3,18 @@ import {
   Button,
   Divider,
   FormControl,
-  HStack,
+  
   Image,
   Select,
   Stack,
   Text,
-  VStack,
+  
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 
-import React, { RefObject, useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { ProductModel } from "../utils/model/product-data-model";
-import { Link, useNavigate } from "react-router-dom";
-import StepperFunc from "./smallcomponents/Stepper";
 import { AppContext, MyContextType } from "../context/app-context";
 import { ConfirmationDialog } from "./dialog/confirmation-dialog";
 
@@ -24,8 +22,12 @@ const CartItem = (data: { data: ProductModel }) => {
   const { RemoveItem, MoveItem } = useContext<MyContextType>(AppContext);
   const color = useColorModeValue("#58595b", "white");
   const value = data?.data?.price.split(" ");
+  const [isDialogOpen, setisDialogOpen] = useState<{ [key: string]: boolean }>({
+    cart: false,
+    wishlist: false,
+  });
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const removeItemDialog = {
   //   id: data?.data?.id,
@@ -136,32 +138,54 @@ const CartItem = (data: { data: ProductModel }) => {
         }}
         mt="10px"
       >
-        <Button variant="outline" onClick={onOpen}>
-          Remove
+        <Button
+          variant="outline"
+          onClick={() => setisDialogOpen({ cart: true, wishlist: false })}
+        >
+          REMOVE
         </Button>
         <Button
           variant="outline"
-          onClick={() => MoveItem(data?.data, "To-Wishlist")}
+          onClick={() => setisDialogOpen({ cart: false, wishlist: true })}
         >
           MOVE TO WISHLIST
         </Button>
       </Stack>
 
-      <ConfirmationDialog
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        confirmationMessage={<Text>Remove Item From Cart</Text>}
-        messageBodyLines={
-          <>
-            <Text>Are you sure you want to remove </Text>
-            <Text>this product from your Cart ?</Text>
-          </>
-        }
-        img={data?.data?.Display_image}
-        type="Cart"
-        onYesClick={() => RemoveItem(data?.data?.id, "Cart")}
-      />
+      {isDialogOpen.cart && (
+        <ConfirmationDialog
+          isOpen={isDialogOpen.cart}
+          onClose={() => setisDialogOpen({ cart: false, wishlist: false })}
+          confirmationMessage={<Text>Remove Item From Cart</Text>}
+          messageBodyLines={
+            <>
+              <Text>Are you sure you want to remove </Text>
+              <Text>this product from your Cart ?</Text>
+            </>
+          }
+          img={data?.data?.Display_image}
+          type="Cart"
+          onYesClick={() => RemoveItem(data?.data?.id, "Cart")}
+          
+        />
+      )}
+
+      {isDialogOpen.wishlist && (
+        <ConfirmationDialog
+          isOpen={isDialogOpen.wishlist}
+          onClose={() => setisDialogOpen({ cart: false, wishlist: false })}
+          confirmationMessage={<Text>Move To Wishlist</Text>}
+          messageBodyLines={
+            <>
+              <Text>Are you sure you want to move </Text>
+              <Text>this product to your Wishlist ?</Text>
+            </>
+          }
+          img={data?.data?.Display_image}
+          type="Cart"
+          onYesClick={() => MoveItem(data?.data, "To-Wishlist")}
+        />
+      )}
     </Box>
   );
 };

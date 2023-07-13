@@ -11,6 +11,9 @@ import WomensProduct from "../pages/womens-product";
 import KidsProduct from "../pages/kids-product";
 import SingleProductPage from "../components/smallcomponents/single-product-page/single-product-page";
 import PageNotFound from "../pages/page-not-found";
+import Address from "../pages/address";
+import OrderConfirmPage from "../pages/Order-confirm-page";
+import PaymentPage from "../pages/payment-page";
 
 const Allroutes = () => {
   return (
@@ -26,6 +29,9 @@ const Allroutes = () => {
       <Route path="/kids-product" element={<KidsProduct />} />
       <Route path="/:page/product/:id" element={<SingleProductPage />} />
       <Route path="/cart" element={<Cart/>}/>
+      <Route path="/address" element={<Address/>}/>
+      <Route path="/payment-successful" element={<OrderConfirmPage/>}/>
+      <Route path="/payment" element={<PaymentPage/>}/>
       <Route path="*" element={<PageNotFound/>} /> 
     </Routes>
   );

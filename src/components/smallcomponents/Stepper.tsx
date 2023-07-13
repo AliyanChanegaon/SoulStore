@@ -2,14 +2,14 @@ import { Box, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSe
 import { useState } from "react";
 
 const steps = [
-  { title: 'First', description: 'Contact Info' },
-  { title: 'Second', description: 'Date & Time' },
-  { title: 'Third', description: 'Select Rooms' },
+  { title: 'MY CART', description: 'Contact Info' },
+  { title: 'ADDRESS', description: 'Date & Time' },
+  { title: 'PAYMENT', description: 'Select Rooms' },
 ]
 
-export default function StepperFunc() {
+export default function StepperFunc(step:{ step: number }) {
   const { activeStep } = useSteps({
-    index: 1,
+    index: step.step,
     count: steps.length,
   })
 

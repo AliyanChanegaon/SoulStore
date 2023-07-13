@@ -1,26 +1,19 @@
 import {
   AlertDialog,
-  AlertDialogBody,
   AlertDialogCloseButton,
   AlertDialogContent,
   AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogOverlay,
   Button,
   Image,
   Stack,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import { useRef } from "react";
-import { RemoveItemDialog } from "../../utils/model/Remove-modal";
-import { useContext } from "react";
-import { AppContext, MyContextType } from "../../context/app-context";
 
 interface ConfirmationDialogProp {
   isOpen: boolean;
-  onOpen: () => void;
+  onOpen?: () => void;
   onClose: () => void;
   img?: string;
   type?: string;
@@ -36,10 +29,8 @@ interface ConfirmationDialogProp {
 
 export const ConfirmationDialog: React.FC<ConfirmationDialogProp> = ({
   isOpen,
-  onOpen,
   onClose,
   img,
-  type,
   confirmationMessage,
   messageBodyLines,
   onYesClick,

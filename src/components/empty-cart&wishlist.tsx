@@ -11,7 +11,7 @@ export const EmptyCart = (type: { type: string }) => {
       {type.type === "Cart" ? (
         <VStack marginX="auto" my={5} w="100%" align="center">
           <HStack w="100%" justify="center">
-            <StepperFunc />
+            <StepperFunc  step={0}  />
           </HStack>
           <HStack w="100%" justify="center">
             <Divider orientation="horizontal" />
