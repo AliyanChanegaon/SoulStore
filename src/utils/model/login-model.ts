@@ -4,5 +4,5 @@ export interface RegisterDetailsModel {
     firstName: string,
     lastName: string,
     phoneNumber: string,
-    choosePassword:string,
+    confirmPassword:string,
 }

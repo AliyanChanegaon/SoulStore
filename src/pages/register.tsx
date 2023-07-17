@@ -17,15 +17,14 @@ import {
   InputLeftElement,
   useColorModeValue,
   FormControl,
-  useToast,
-  FormErrorMessage,
   Tooltip,
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
-import { RegisterSchemas } from "../utils/schema/register-schemas";
+import { RegisterSchemas } from "../utils/schemas/register-schemas";
+import { RegisterDetailsModel } from "../utils/model/login-model";
 
 const initialValues = {
   email: "",
@@ -45,17 +44,19 @@ const Register = () => {
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
   const buttonBg = useColorModeValue("teal", "telegram");
   const textColor = useColorModeValue("red", "#a2d4ec");
-  const toast = useToast();
 
-  const HandlingSubmit = () => {
-    //   const existingData =
-    //     JSON.parse(localStorage.getItem("userData") as string) || [];
-    //   // console.log(existingData);
-    //   const updatedData = [...existingData, userData];
-    //   localStorage.setItem("userData", JSON.stringify(updatedData));
-    //   Navigate("/login");
-    // };/
-  };
+  const Submitfunc = (values:RegisterDetailsModel) => {
+
+     
+      const existingData =
+        JSON.parse(localStorage.getItem("userData") as string) || [];
+      // console.log(existingData);
+      const updatedData = [...existingData, values];
+      localStorage.setItem("userData", JSON.stringify(updatedData));
+      console.log(updatedData);
+      Navigate("/login");
+    };
+  
 
   const {
     values,
@@ -70,7 +71,14 @@ const Register = () => {
     validationSchema: RegisterSchemas,
     onSubmit: (values, action) => {
       action.resetForm();
-      setValues(initialValues);
+
+      if(Object.keys(errors).length === 0){
+        Submitfunc(values)
+        setValues(initialValues);
+      }
+     
+
+     
     },
   });
 
@@ -212,9 +220,7 @@ const Register = () => {
                     required
                   />
                 </Tooltip>
-                {/* {isError.lastName && (
-                  <FormErrorMessage>Last name is required.</FormErrorMessage>
-                )} */}
+               
               </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
@@ -354,9 +360,7 @@ const Register = () => {
                     />
                   </Tooltip>
                 </InputGroup>
-                {/* {isError.phoneNumber && (
-                  <FormErrorMessage>Phone number is required.</FormErrorMessage>
-                )} */}
+              
               </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
@@ -371,12 +375,13 @@ const Register = () => {
             </GridItem>
             <GridItem colSpan={2}>
               <Button
+               type="submit"
                 w="100%"
                 colorScheme={buttonBg}
                 borderRadius={2}
-                onClick={handleSubmit}
+                onClick={()=>handleSubmit()}
               >
-                IntrinsicAttribute REGISTER
+                REGISTER
               </Button>
             </GridItem>
           </Grid>
