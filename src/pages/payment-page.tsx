@@ -3,17 +3,13 @@ import {
   HStack,
   Stack,
   VStack,
-  Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   Image,
   Input,
   PinInput,
   PinInputField,
   Text,
-  useToast,
-  Wrap,
 } from "@chakra-ui/react";
 import StepperFunc from "../components/smallcomponents/Stepper";
 import PriceBreakdown from "../components/smallcomponents/price-breakdown";
@@ -39,8 +35,9 @@ const PaymentPage = () => {
         w="100%"
         flexDirection={{ base: "column", md: "row", lg: "row" }}
         margin="auto"
+        align={{base: "center"}}
       >
-        <Stack align="center" my={5}   w={{ base: "100%", md: "100%", lg: "63%" }}>
+        <Stack align="center" my={5} w={{ base: "80%", md: "100%", lg: "63%" }}>
           <Text fontWeight="bold" fontSize="xl">
             Choose your payment method
           </Text>
@@ -163,6 +160,8 @@ const PaymentPage = () => {
         <Stack
           w={{ base: "100%", md: "100%", lg: "25%" }}
           justifyContent="flex-start"
+          align={{base: "center"}}
+          mb={{base: "20px"}}
         >
           <PriceBreakdown data={PriceData} />
         </Stack>

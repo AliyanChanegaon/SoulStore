@@ -11,6 +11,9 @@ export interface MyContextType {
   updateList: (value: ProductModel, type: string) => void;
   RemoveItem: (id: number, type: string) => void;
   MoveItem: (product: ProductModel, type: string) => void;
+  isAuth:boolean;
+  setisAuth:(value:boolean)=> void;
+ 
 }
 
 const handlingError = {
@@ -142,6 +145,7 @@ const MensData = [
   },
 ];
 
+
 export const AppContext = createContext<MyContextType>({
   status: {},
   data: dataItem,
@@ -150,6 +154,9 @@ export const AppContext = createContext<MyContextType>({
   updateList: () => {},
   RemoveItem: () => {},
   MoveItem: () => {},
+  isAuth:false,
+  setisAuth: () => {},
+  
 });
 const AppContextProvider = ({ children }: any) => {
   const [status, setStatus] = useState<{ [key: string]: boolean }>(
@@ -157,6 +164,8 @@ const AppContextProvider = ({ children }: any) => {
   );
   const toast = useToast();
   const [data, setData] = useState<dataItemProp>(dataItem);
+
+  const [isAuth,setisAuth]=useState<boolean>(false);
 
   const [userData, setUserData] = useState<{ ss: 0 }>({ ss: 0 });
 
@@ -256,6 +265,8 @@ const AppContextProvider = ({ children }: any) => {
         updateList,
         RemoveItem,
         MoveItem,
+        isAuth,
+        setisAuth
       }}
     >
       {children}

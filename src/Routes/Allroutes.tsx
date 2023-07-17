@@ -18,6 +18,7 @@ import PaymentPage from "../pages/payment-page";
 const Allroutes = () => {
   return (
     <Routes>
+       <Route path="/" element={<Men />} />
       <Route path="/men" element={<Men />} />
       <Route path="/women" element={<Women />} />
       <Route path="/kid" element={<Kid />} />

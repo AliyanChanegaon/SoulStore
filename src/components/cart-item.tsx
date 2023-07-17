@@ -3,14 +3,11 @@ import {
   Button,
   Divider,
   FormControl,
-  
   Image,
   Select,
   Stack,
   Text,
-  
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useContext, useState } from "react";
@@ -27,15 +24,6 @@ const CartItem = (data: { data: ProductModel }) => {
     wishlist: false,
   });
 
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
-  // const removeItemDialog = {
-  //   id: data?.data?.id,
-  //   title: "Remove Item From Cart",
-  //   img: data?.data?.Display_image,
-  //   type: "Cart",
-  //   action: "REMOVE",
-  // };
 
   return (
     <Box

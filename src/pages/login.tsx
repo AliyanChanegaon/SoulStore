@@ -9,16 +9,121 @@ import {
   Text,
   VStack,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RegisterDetailsModel } from "../utils/model/login-model";
+const RegisterDetails = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
+  const [registerData, setRegisterData] =
+    useState<RegisterDetailsModel>(RegisterDetails);
   const Navigate = useNavigate();
   const bg = useColorModeValue("#e6e7e8", "#1a202c");
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
   const buttonBg = useColorModeValue("teal", "telegram");
   const color = useColorModeValue("black", "white");
   const textColor = useColorModeValue("red", "#a2d4ec");
+  const toast = useToast();
+
+  const HandlingSubmit = () => {
+    const existingData =
+      JSON.parse(localStorage.getItem("userData") as string) || [];
+
+    if (existingData.length === 0) {
+      toast({
+        title: "User not exist",
+
+        description: "Please register",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+
+
+
+    const existingEmails = existingData.map(
+      (data: RegisterDetailsModel) => data.email 
+    );
+
+    const existingPassword = existingData.map(
+      (data: RegisterDetailsModel) => data.password 
+    );
+
+
+    if (
+      existingEmails.includes(registerData.email) &&
+      existingPassword.includes(registerData.password)
+    ) {
+      toast({
+        title: "Login successful",
+
+        description: "Welcome to soul store",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    if (
+      !existingEmails.includes(registerData.email) &&
+      !existingPassword.includes(registerData.password)
+    ) {
+      toast({
+        title: "Error",
+
+        description: "Incorrect credentials",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    if (
+      !existingEmails.includes(registerData.email) &&
+      existingPassword.includes(registerData.password)
+    ) {
+      toast({
+        title: "Error",
+
+        description: "Incorrect email",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    if (
+      existingEmails.includes(registerData.email) &&
+      !existingPassword.includes(registerData.password)
+    ) {
+      toast({
+        title: "Error",
+
+        description: "Incorrect password",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const HandlingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // console.log(e.target)
+     
+    setRegisterData({
+      ...registerData,
+      [name]: value,
+    });
+  };
+
   return (
     <VStack
       w="100%"
@@ -69,7 +174,6 @@ const Login = () => {
             marginLeft: "-5px",
             width: "0",
             height: "0",
-
             borderLeft: "10px solid transparent",
             borderRight: "10px solid transparent",
             borderBottom: "10px solid grey",
@@ -102,15 +206,31 @@ const Login = () => {
 
           <Stack gap={4} w="100%">
             <Input
+              name="email"
               colorScheme="whiteAlpha"
-              type="number"
+              type="email"
               variant="outline"
-              placeholder="Enter Phone Number"
+              placeholder="Enter email"
               w="100%"
+              onChange={(e) => HandlingChange(e)}
+            />
+            <Input
+              name="password"
+              colorScheme="whiteAlpha"
+              type="password"
+              variant="outline"
+              placeholder="Enter password"
+              w="100%"
+              onChange={(e) => HandlingChange(e)}
             />
 
-            <Button colorScheme={buttonBg} variant="solid" w="100%">
-              Button
+            <Button
+              colorScheme={buttonBg}
+              variant="solid"
+              w="100%"
+              onClick={HandlingSubmit}
+            >
+              LOGIN
             </Button>
           </Stack>
 

@@ -16,15 +16,64 @@ import {
   InputGroup,
   InputLeftElement,
   useColorModeValue,
+  FormControl,
+  useToast,
+  FormErrorMessage,
+  Tooltip,
 } from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
 
+import { useFormik } from "formik";
+import { RegisterSchemas } from "../utils/schema/register-schemas";
+
+const initialValues = {
+  email: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  confirmPassword: "",
+};
+
 const Register = () => {
+  // const [registerData, setRegisterData] =
+  //   useState<RegisterDetailsModel>(InitialDetails);
+
   const Navigate = useNavigate();
   const bg = useColorModeValue("#e6e7e8", "#1a202c");
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
   const buttonBg = useColorModeValue("teal", "telegram");
   const textColor = useColorModeValue("red", "#a2d4ec");
+  const toast = useToast();
+
+  const HandlingSubmit = () => {
+    //   const existingData =
+    //     JSON.parse(localStorage.getItem("userData") as string) || [];
+    //   // console.log(existingData);
+    //   const updatedData = [...existingData, userData];
+    //   localStorage.setItem("userData", JSON.stringify(updatedData));
+    //   Navigate("/login");
+    // };/
+  };
+
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setValues,
+  } = useFormik({
+    initialValues,
+    validationSchema: RegisterSchemas,
+    onSubmit: (values, action) => {
+      action.resetForm();
+      setValues(initialValues);
+    },
+  });
+
   return (
     <VStack w="100%" bgColor={bg} p={{ base: 0, md: 4 }} fontSize="sm">
       <Stack
@@ -101,89 +150,233 @@ const Register = () => {
 
           <Grid templateRows="repeat(7,1fr)" gap={{ base: 2, md: 4 }}>
             <GridItem colSpan={1}>
-              <Input
-                type="text"
-                variant="outline"
-                placeholder="First Name"
-                bgColor={boxBg}
-                rounded="xl"
-                required
-              />
+              <FormControl>
+                <Tooltip
+                  label={
+                    errors.firstName && touched.firstName
+                      ? errors.firstName
+                      : null
+                  }
+                  bgColor={"red.500"}
+                  placement="top"
+                  hasArrow
+                  arrowSize={5}
+                >
+                  <Input
+                    name="firstName"
+                    value={values.firstName}
+                    borderColor={
+                      errors.firstName && touched.firstName ? "red" : "gray"
+                    }
+                    borderWidth={
+                      errors.firstName && touched.firstName ? "2px" : "1px"
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type="text"
+                    variant="outline"
+                    placeholder="First Name"
+                    bgColor={boxBg}
+                    rounded="xl"
+                  />
+                </Tooltip>
+              </FormControl>
             </GridItem>
             <GridItem colSpan={1}>
-              <Input
-                type="text"
-                variant="outline"
-                placeholder="Last Name"
-                bgColor={boxBg}
-                rounded="xl"
-                required
-              />
+              <FormControl>
+                <Tooltip
+                  label={
+                    errors.lastName && touched.lastName ? errors.lastName : null
+                  }
+                  bgColor={"red.500"}
+                  placement="top"
+                  hasArrow
+                  arrowSize={5}
+                >
+                  <Input
+                    name="lastName"
+                    value={values.lastName}
+                    borderColor={
+                      errors.lastName && touched.lastName ? "red" : "gray"
+                    }
+                    borderWidth={
+                      errors.lastName && touched.lastName ? "2px" : "1px"
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type="text"
+                    variant="outline"
+                    placeholder="Last Name"
+                    bgColor={boxBg}
+                    rounded="xl"
+                    required
+                  />
+                </Tooltip>
+                {/* {isError.lastName && (
+                  <FormErrorMessage>Last name is required.</FormErrorMessage>
+                )} */}
+              </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
-              <Input
-                type="email"
-                variant="outline"
-                placeholder="Email ID"
-                bgColor={boxBg}
-                rounded="xl"
-                required
-              />
+              <FormControl>
+                <Tooltip
+                  label={errors.email && touched.email ? errors.email : null}
+                  bgColor={"red.500"}
+                  placement="top"
+                  hasArrow
+                  arrowSize={5}
+                >
+                  <Input
+                    name="email"
+                    value={values.email}
+                    borderColor={errors.email && touched.email ? "red" : "gray"}
+                    borderWidth={errors.email && touched.email ? "2px" : "1px"}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type="email"
+                    variant="outline"
+                    placeholder="Email ID"
+                    bgColor={boxBg}
+                    rounded="xl"
+                    required
+                  />
+                </Tooltip>
+              </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
-              <Input
-                type="password"
-                variant="outline"
-                placeholder="Choose New Password"
-                bgColor={boxBg}
-                rounded="xl"
-                required
-              />
+              <FormControl>
+                <Tooltip
+                  label={
+                    errors.password && touched.password ? errors.password : null
+                  }
+                  bgColor={"red.500"}
+                  placement="top"
+                  hasArrow
+                  arrowSize={5}
+                >
+                  <Input
+                    name="password"
+                    value={values.password}
+                    borderColor={
+                      errors.password && touched.password ? "red" : "gray"
+                    }
+                    borderWidth={
+                      errors.password && touched.password ? "2px" : "1px"
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type="password"
+                    variant="outline"
+                    placeholder="Choose New Password"
+                    bgColor={boxBg}
+                    rounded="xl"
+                    required
+                  />
+                </Tooltip>
+              </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
-              <Input
-                type="password"
-                variant="outline"
-                placeholder="Confirm Password"
-                bgColor={boxBg}
-                rounded="xl"
-                required
-              />
+              <FormControl>
+                <Tooltip
+                  label={
+                    errors.confirmPassword && touched.confirmPassword
+                      ? errors.confirmPassword
+                      : null
+                  }
+                  bgColor={"red.500"}
+                  placement="top"
+                  hasArrow
+                  arrowSize={5}
+                >
+                  <Input
+                    type="password"
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    borderColor={
+                      errors.confirmPassword && touched.confirmPassword
+                        ? "red"
+                        : "gray"
+                    }
+                    borderWidth={
+                      errors.confirmPassword && touched.confirmPassword
+                        ? "2px"
+                        : "1px"
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    variant="outline"
+                    placeholder="Confirm Password"
+                    bgColor={boxBg}
+                    rounded="xl"
+                    required
+                  />
+                </Tooltip>
+              </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
-              <InputGroup>
-                <InputLeftElement pointerEvents="none">
-                  <PhoneIcon color="gray.300" />
-                </InputLeftElement>
-                <Input
-                  type="number"
-                  variant="outline"
-                  placeholder="Mobile Number (Status Update)"
-                  bgColor={boxBg}
-                  rounded="xl"
-                  required
-                />
-              </InputGroup>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement pointerEvents="none">
+                    <PhoneIcon color="gray.300" />
+                  </InputLeftElement>
+                  <Tooltip
+                    label={
+                      errors.phoneNumber && touched.phoneNumber
+                        ? errors.phoneNumber
+                        : null
+                    }
+                    bgColor={"red.500"}
+                    placement="top"
+                    hasArrow
+                    arrowSize={5}
+                  >
+                    <Input
+                      name="phoneNumber"
+                      value={values.phoneNumber}
+                      borderColor={
+                        errors.phoneNumber && touched.phoneNumber
+                          ? "red"
+                          : "gray"
+                      }
+                      borderWidth={
+                        errors.phoneNumber && touched.phoneNumber
+                          ? "2px"
+                          : "1px"
+                      }
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="number"
+                      variant="outline"
+                      placeholder="Mobile Number (Status Update)"
+                      bgColor={boxBg}
+                      rounded="xl"
+                      required
+                    />
+                  </Tooltip>
+                </InputGroup>
+                {/* {isError.phoneNumber && (
+                  <FormErrorMessage>Phone number is required.</FormErrorMessage>
+                )} */}
+              </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
               <RadioGroup defaultValue="2">
                 <Stack spacing={2} direction="row">
                   <Text fontSize="md">Gender</Text>
-                  <Radio  value="1">
-                    Male
-                  </Radio>
-                  <Radio  value="2">
-                    Female
-                  </Radio>
-                  <Radio  value="3">
-                    Other
-                  </Radio>
+                  <Radio value="1">Male</Radio>
+                  <Radio value="2">Female</Radio>
+                  <Radio value="3">Other</Radio>
                 </Stack>
               </RadioGroup>
             </GridItem>
             <GridItem colSpan={2}>
-              <Button w="100%" colorScheme={buttonBg} borderRadius={2}>
-                Register
+              <Button
+                w="100%"
+                colorScheme={buttonBg}
+                borderRadius={2}
+                onClick={handleSubmit}
+              >
+                IntrinsicAttribute REGISTER
               </Button>
             </GridItem>
           </Grid>
