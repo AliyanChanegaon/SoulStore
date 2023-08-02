@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
 import { mensItem, womensItem, kidsItem } from "../../../utils/Data";
-import { ProductModel } from "../../../utils/model/product-data-model";
+import { ProductModel } from "../../../utils/models/product-data-model";
 import {
   AccordionButton,
   AccordionIcon,

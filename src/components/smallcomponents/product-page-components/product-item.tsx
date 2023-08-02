@@ -12,7 +12,7 @@ import {
 
 import { useState, useContext, useEffect } from "react";
 import { FaRegHeart } from "react-icons/fa";
-import { ProductModel } from "../../../utils/model/product-data-model";
+import { ProductModel } from "../../../utils/models/product-data-model";
 import { Link } from "react-router-dom";
 import { AppContext, MyContextType } from "../../../context/app-context";
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { kidsItem, mensItem, womensItem } from "../../utils/Data";
-import { ProductModel } from "../../utils/model/product-data-model";
+import { ProductModel } from "../../utils/models/product-data-model";
 import "./search-module.css";
 
 const dataTobeMatch = [...mensItem, ...womensItem, ...kidsItem];

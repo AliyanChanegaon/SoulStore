@@ -1,7 +1,7 @@
 import { VStack } from "@chakra-ui/react";
-import Navbar from "./routes/Navbar";
+import Navbar from "./routes/navbar";
 import Footer from "./components/footer";
-import Allroutes from "./routes/Allroutes";
+import Allroutes from "./routes/all-routes";
 import "./App.css";
 
 function App() {

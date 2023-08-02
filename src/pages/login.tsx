@@ -12,19 +12,21 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { RegisterDetailsModel } from "../utils/model/login-model";
+import { RegisterDetailsModel } from "../utils/models/login-model";
 import { useFormik } from "formik";
 import { LoginSchemas } from "../utils/schemas/login-schemas";
-import { AppContext, MyContextType } from "../context/app-context";
+import { useRecoilState } from "recoil";
+import UserDetailAtom, {
+  UserDetailsProps,
+} from "../utils/atoms/auth-atoms-state";
 const initialValues = {
   email: "",
   password: "",
 };
 
 const Login = () => {
-  const { setUserData, setisAuth } = useContext<MyContextType>(AppContext);
+  const [userDetails, setUserDetails] = useRecoilState<UserDetailsProps>(UserDetailAtom);
   const Navigate = useNavigate();
   const bg = useColorModeValue("#e6e7e8", "#1a202c");
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
@@ -34,8 +36,6 @@ const Login = () => {
   const toast = useToast();
 
   const HandlingSubmit = (values: RegisterDetailsModel) => {
-    console.log(values);
-
     const existingData =
       JSON.parse(localStorage.getItem("userData") as string) || [];
 
@@ -73,9 +73,11 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
-      setisAuth(true);
-      Navigate("/men");
-      return setUserData(User.firstName + " " + User.lastName);
+      setUserDetails({
+        isAuth: true,
+        userName: User.firstName + " " + User.lastName,
+      });
+      return Navigate("/men");
     }
 
     if (User.email == values.email && User.password !== values.password) {
@@ -103,6 +105,7 @@ const Login = () => {
       },
     });
 
+   
   return (
     <VStack
       w="100%"

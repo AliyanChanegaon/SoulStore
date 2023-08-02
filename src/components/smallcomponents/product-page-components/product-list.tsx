@@ -1,6 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import ProductItem from "./product-item";
-import { ProductModel } from "../../../utils/model/product-data-model";
+import { ProductModel } from "../../../utils/models/product-data-model";
 
 
 interface ProductListProps{

@@ -31,9 +31,13 @@ import ThemeButton from "../components/smallcomponents/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "../components/smallcomponents/Search";
 import { BsSearch } from "react-icons/bs";
-import { useContext, useState } from "react";
-import { AppContext, MyContextType } from "../context/app-context";
+import { useState } from "react";
+
 import { ConfirmationDialog } from "../components/dialog/confirmation-dialog";
+import { useRecoilState } from "recoil";
+import UserDetailAtom, {
+  UserDetailsProps,
+} from "../utils/atoms/auth-atoms-state";
 
 interface HamburgerProp {
   onClose: () => void;
@@ -117,8 +121,8 @@ const mainLinks: Array<{ path: string; title: string }> = [
 ];
 export default function Navbar() {
   const { isOpen, onToggle, onClose } = useDisclosure();
-  const { isAuth, userData } = useContext<MyContextType>(AppContext);
-
+  
+  const [UserDetails] = useRecoilState<UserDetailsProps>(UserDetailAtom);
   const [Searchbar, SetSearchBar] = useState(false);
   const Navigate = useNavigate();
 
@@ -206,6 +210,31 @@ export default function Navbar() {
 
           <DesktopNav />
         </Flex>
+
+        {UserDetails.isAuth && (
+          <Tag
+            zIndex={9}
+            display={{ base: "none", md: "initial" }}
+            position="absolute"
+            top={120}
+            right={0}
+            size="lg"
+            borderRadius="full"
+            borderEndRadius={0}
+            bgColor={bg}
+            color="white"
+          >
+            <Stack flexDirection="row" h="100%" mt={1}>
+              <Avatar
+                src="\img\avatar.png"
+                size="xs"
+                name={UserDetails.userName}
+              />
+              <TagLabel>{UserDetails.userName}</TagLabel>
+            </Stack>
+          </Tag>
+        )}
+
         {Searchbar && (
           <Stack
             w="100%"
@@ -217,38 +246,6 @@ export default function Navbar() {
           </Stack>
         )}
       </Flex>
-      {/* <Button border="2px solid red" colorScheme='blue' onClick={onOpen}>
-        Open
-      </Button> */}
-
-      {isAuth && (
-        <Tag
-          zIndex={9999}
-          display={{ base: "none", md: "initial" }}
-          position="fixed"
-          mt={5}
-          right={10}
-          size="lg"
-          colorScheme="facebook"
-          borderRadius="full"
-        >
-          <Stack
-            flexDirection="row"
-            h="100%"
-            m="auto"
-            align="center"
-            justify="center"
-          >
-            <Avatar
-              src="https://bit.ly/sage-adebayo"
-              size="xs"
-              name={userData}
-              m={0}
-            />
-            <TagLabel>{userData}</TagLabel>
-          </Stack>
-        </Tag>
-      )}
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
@@ -270,13 +267,14 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const { isAuth, setisAuth } = useContext<MyContextType>(AppContext);
+  const [UserDetails, setUserDetails] =
+    useRecoilState<UserDetailsProps>(UserDetailAtom);
   const [isHovered, setIsHovered] = useState(false);
   const NavIcons: any = [
     {
       path: "/login",
-      type: isAuth ? "logout" : "link",
-      icon: isAuth ? "" : <FaRegUser />,
+      type: UserDetails.isAuth ? "logout" : "link",
+      icon: UserDetails.isAuth ? "" : <FaRegUser />,
     },
 
     {
@@ -300,7 +298,6 @@ const DesktopNav = () => {
   const color = useColorModeValue("black", "white");
   const menubg = useColorModeValue("none", "#0e4482");
   const [isDialogOpen, setisDialogOpen] = useState(false);
-  const { userData } = useContext<MyContextType>(AppContext);
 
   const Handlinghover = () => {
     setIsHovered(true);
@@ -345,6 +342,7 @@ const DesktopNav = () => {
           {mainLinks.map((el, idx) => (
             <NavLink
               key={idx}
+
               to={el.path}
               style={({ isActive }: any) =>
                 isActive ? activestyle : defaultstyle
@@ -416,8 +414,8 @@ const DesktopNav = () => {
             {NavIcons.map((el: any, idx: number) => {
               if (el.type == "logout") {
                 return (
-                  <>
-                    <Tooltip label={userData} placement="top">
+                  <div key={idx}>
+                    <Tooltip key={idx} label={UserDetails.userName} placement="top">
                       <IconButton
                         key="FiLogOut"
                         variant="ghost"
@@ -439,7 +437,7 @@ const DesktopNav = () => {
                           </>
                         }
                         onYesClick={() => {
-                          setisAuth(false);
+                          setUserDetails({ isAuth: false, userName: "" });
                           setisDialogOpen(false);
                           toast({
                             title: "Logout Successfull.",
@@ -451,7 +449,7 @@ const DesktopNav = () => {
                         }}
                       />
                     )}
-                  </>
+                  </div>
                 );
               }
 
@@ -481,10 +479,13 @@ const DesktopNav = () => {
 };
 
 const MobileDrawer = ({ onClose: DrawerClose }: HamburgerProp) => {
-  const { isAuth, setisAuth, userData } = useContext<MyContextType>(AppContext);
+  
   const [isDialogOpen, setisDialogOpen] = useState(false);
+  const [UserDetails, setUserDetails] =
+    useRecoilState<UserDetailsProps>(UserDetailAtom);
 
   const bg = useColorModeValue("black", "white");
+  const bgAvtar = useColorModeValue("red.500", "#2a9df4");
   const Navigate = useNavigate();
   const menubg = useColorModeValue("white", "#2d3748");
 
@@ -494,6 +495,29 @@ const MobileDrawer = ({ onClose: DrawerClose }: HamburgerProp) => {
       display={{ lg: "none" }}
       width="100%"
     >
+      {UserDetails.isAuth && (
+        <Tag
+          zIndex={9}
+          display={{ base: "initial", md: "none" }}
+          position="absolute"
+          bottom={10}
+          left={0}
+          size="lg"
+          borderRadius="full"
+          borderStartRadius={0}
+          bgColor={bgAvtar}
+          color="white"
+        >
+          <Stack flexDirection="row" h="100%" mt={1}>
+            <Avatar
+              src="\img\avatar.png"
+              size="xs"
+              name={UserDetails.userName}
+            />
+            <TagLabel>{UserDetails.userName}</TagLabel>
+          </Stack>
+        </Tag>
+      )}
       <Stack
         display={{ base: "flex", md: "none", lg: "none" }}
         position="absolute"
@@ -506,9 +530,9 @@ const MobileDrawer = ({ onClose: DrawerClose }: HamburgerProp) => {
         display={{ base: "flex", lg: "none" }}
         position="absolute"
         top="2%"
-        left={isAuth ? "65%" : "45%"}
+        left={UserDetails.isAuth ? "65%" : "45%"}
       >
-        {isAuth ? (
+        {UserDetails.isAuth ? (
           <Button
             colorScheme="teal"
             variant="outline"
@@ -532,11 +556,11 @@ const MobileDrawer = ({ onClose: DrawerClose }: HamburgerProp) => {
             confirmationMessage={<Text>Logout</Text>}
             messageBodyLines={
               <>
-                <Text>{`${userData} are you sure you want to logout ? `}</Text>
+                <Text>{`${UserDetails.userName} are you sure you want to logout ? `}</Text>
               </>
             }
             onYesClick={() => {
-              setisAuth(false);
+              setUserDetails({ isAuth: false, userName: "" });
               setisDialogOpen(false);
               DrawerClose();
             }}

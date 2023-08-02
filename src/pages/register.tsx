@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
 import { RegisterSchemas } from "../utils/schemas/register-schemas";
-import { RegisterDetailsModel } from "../utils/model/login-model";
+import { RegisterDetailsModel } from "../utils/models/login-model";
 
 const initialValues = {
   email: "",
@@ -36,9 +36,6 @@ const initialValues = {
 };
 
 const Register = () => {
-  // const [registerData, setRegisterData] =
-  //   useState<RegisterDetailsModel>(InitialDetails);
-
   const Navigate = useNavigate();
   const bg = useColorModeValue("#e6e7e8", "#1a202c");
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
@@ -48,7 +45,7 @@ const Register = () => {
   const Submitfunc = (values: RegisterDetailsModel) => {
     const existingData =
       JSON.parse(localStorage.getItem("userData") as string) || [];
-    // console.log(existingData);
+
     const updatedData = [...existingData, values];
     localStorage.setItem("userData", JSON.stringify(updatedData));
     console.log(updatedData);

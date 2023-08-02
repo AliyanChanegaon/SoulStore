@@ -1,24 +1,19 @@
 import { createContext, useState } from "react";
-import { ProductModel } from "../utils/model/product-data-model";
+import { ProductModel } from "../utils/models/product-data-model";
 import { useToast } from "@chakra-ui/react";
 
 export interface MyContextType {
   status: { [key: string]: boolean };
   data: dataItemProp;
   setData: (value: dataItemProp) => void;
-  userData: string;
   updateList: (value: ProductModel, type: string) => void;
   RemoveItem: (id: number, type: string) => void;
   MoveItem: (product: ProductModel, type: string) => void;
-  isAuth: boolean;
-  setUserData: (value: string) => void;
-  setisAuth: (value: boolean) => void;
 }
 
 const handlingError = {
   isLoading: false,
   isError: false,
-  isAuth: false,
 };
 
 export type dataItemProp = {
@@ -35,22 +30,14 @@ export const AppContext = createContext<MyContextType>({
   status: {},
   data: dataItem,
   setData: () => {},
-  setUserData: () => {},
-  userData: "",
   updateList: () => {},
   RemoveItem: () => {},
   MoveItem: () => {},
-  isAuth: false,
-  setisAuth: () => {},
 });
 const AppContextProvider = ({ children }: any) => {
   const [status] = useState<{ [key: string]: boolean }>(handlingError);
   const toast = useToast();
   const [data, setData] = useState<dataItemProp>(dataItem);
-
-  const [isAuth, setisAuth] = useState<boolean>(false);
-
-  const [userData, setUserData] = useState<string>("");
 
   const updateList = (product: ProductModel, type: string) => {
     if (type == "Cart") {
@@ -71,7 +58,6 @@ const AppContextProvider = ({ children }: any) => {
 
         toast({
           title: "Item Removed",
-
           duration: 3000,
           isClosable: true,
         });
@@ -81,9 +67,7 @@ const AppContextProvider = ({ children }: any) => {
 
       toast({
         title: "Added to wishlist",
-
         description: "shop more or go to cart.",
-
         duration: 3000,
         isClosable: true,
       });
@@ -136,20 +120,17 @@ const AppContextProvider = ({ children }: any) => {
       });
     }
   };
+  console.log(999 * 1.12);
 
   return (
     <AppContext.Provider
       value={{
         status,
-        userData,
         data,
         setData,
         updateList,
         RemoveItem,
         MoveItem,
-        isAuth,
-        setisAuth,
-        setUserData,
       }}
     >
       {children}

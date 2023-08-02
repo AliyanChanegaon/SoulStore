@@ -20,6 +20,8 @@
     "react-icons": "^4.10.1",
     "react-redux": "^8.1.1",
     "react-search-autocomplete": "^8.5.2",
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "vercel": "^31.0.2",

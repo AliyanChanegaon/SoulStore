@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Image, Stack, Text, VStack, useDisclosure } from "@chakra-ui/react";
-import { ProductModel } from "../utils/model/product-data-model";
+import { ProductModel } from "../utils/models/product-data-model";
 import { AppContext, MyContextType } from "../context/app-context";
 import { useContext} from "react";
 import { ConfirmationDialog } from "./dialog/confirmation-dialog";

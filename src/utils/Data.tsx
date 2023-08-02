@@ -1,5 +1,5 @@
-import { DataModel } from "./model/data-model";
-import { ProductModel } from "./model/product-data-model";
+import { DataModel } from "./models/data-model";
+import { ProductModel } from "./models/product-data-model";
 
 export const mensItem: Array<ProductModel> =[
   {

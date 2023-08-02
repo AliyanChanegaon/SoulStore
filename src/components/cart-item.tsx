@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useContext, useState } from "react";
-import { ProductModel } from "../utils/model/product-data-model";
+import { ProductModel } from "../utils/models/product-data-model";
 import { AppContext, MyContextType } from "../context/app-context";
 import { ConfirmationDialog } from "./dialog/confirmation-dialog";
 

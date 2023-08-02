@@ -3,8 +3,8 @@ import ProductHeaders from "../product-page-components/product-headers";
 import LeftFilters from "../product-page-components/left-filters";
 import TopSlider from "../../top-slider";
 import ProductList from "./product-list";
-import { DataModel } from "../../../utils/model/data-model";
-import { ProductModel } from "../../../utils/model/product-data-model";
+import { DataModel } from "../../../utils/models/data-model";
+import { ProductModel } from "../../../utils/models/product-data-model";
 import { useMemo, useState } from "react";
 
 export const ProductPage = (data: DataModel) => {

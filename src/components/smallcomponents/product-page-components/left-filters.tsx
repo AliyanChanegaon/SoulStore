@@ -16,7 +16,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { FilterOptionsModel } from "../../../utils/model/filter-options-model";
+import { FilterOptionsModel } from "../../../utils/models/filter-options-model";
 import SearchInput from "./search-input";
 
 interface LeftFiltersProps {
