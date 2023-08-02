@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ProductModel } from "../utils/model/product-data-model";
 import CartItem from "./cart-item";
 import { VStack } from "@chakra-ui/react";

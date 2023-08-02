@@ -321,12 +321,12 @@ export const MensData: DataModel = {
   options: {
     product: [
       "T-shirts",
-      "Shirts",
+      "Holiday Shirts",
       "Oversized T-shirts",
-      "joggers",
-      "jeans",
-      "Polos",
-      "Supima",
+      "Men Hooded Vests",
+      "Men Cargo Joggers",
+      "Supima T-Shirts",
+      "Men Jeans",
     ],
 
     size: [

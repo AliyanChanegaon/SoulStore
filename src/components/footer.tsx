@@ -35,9 +35,12 @@ export default function Footer() {
   const color = useColorModeValue("red.500", "#2a9df4");
   return (
     <VStack
+    p={0}
+    m={0}
       w="100%"
       bg={"blackAlpha.200"}
       color={useColorModeValue("gray.700", "gray.200")}
+     
     >
       <Container as={Stack} maxW={"6xl"} pt="25px" >
         <SimpleGrid columns={{ base: 2, sm: 2, md: 4 }} spacing={8}>

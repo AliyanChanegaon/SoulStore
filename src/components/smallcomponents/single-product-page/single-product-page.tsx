@@ -1,4 +1,4 @@
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
 import { mensItem, womensItem, kidsItem } from "../../../utils/Data";
@@ -18,11 +18,9 @@ import {
   Text,
   VStack,
   useColorModeValue,
-  useToast,
   Accordion,
-  Highlight,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+
 import { BiShoppingBag } from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AppContext, MyContextType } from "../../../context/app-context";
@@ -36,7 +34,7 @@ const SingleProductPage = () => {
   const [wishlistbutton, setWishlistbutton] = useState<boolean>(true);
   const [bagbutton, setbagbutton] = useState<boolean>(true);
   const [values, SetValues] = useState<Array<string>>();
-  
+
   const [sizes, setsizes] = useState<Array<string>>([
     "XXS",
     "XS",
@@ -48,55 +46,40 @@ const SingleProductPage = () => {
     "XXXL",
   ]);
   const { id, page } = useParams();
-  const toast = useToast();
   const color = useColorModeValue("black", "white");
   const buttonBgColor = useColorModeValue("red.500", "#2a9df4");
   const buttonBgColorHover = useColorModeValue("#c92e2e", "#0686e7");
   const buttonColor = useColorModeValue("white", "black");
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
 
   const handleClick = (value: string) => {
- 
     if (value === "Cart") {
       setIsButLoading(true);
       console.log("hiuohi");
       if (itemData != undefined) {
-        updateList(itemData,"Cart");
+        updateList(itemData, "Cart");
       }
-
-      
     } else {
       setIsWishlistLoading(true);
       console.log("hiuohi");
       if (itemData != undefined) {
-        updateList(itemData,"Wishlist");
+        updateList(itemData, "Wishlist");
       }
-      
     }
-    
 
-      setTimeout(() => {
-        value === "Cart" ? setIsButLoading(false) : setIsWishlistLoading(false);
-      // handleCart(data[0]);
+    setTimeout(() => {
+      value === "Cart" ? setIsButLoading(false) : setIsWishlistLoading(false);
+
       value === "Cart" ? setbagbutton(false) : setWishlistbutton(false);
-      }, 1500);
+    }, 1500);
+  };
 
-      
-
-      // console.log(data[0]);
-   
-  
-  }
-  
-  const checkIsCart = ()=>{
-    console.log()
-  }
-  checkIsCart()
+  const checkIsCart = () => {
+    console.log();
+  };
+  checkIsCart();
 
   useEffect(() => {
-   
- 
-
     window.scrollTo(0, 0);
     if (page === "kid") {
       setsizes([
@@ -122,9 +105,6 @@ const SingleProductPage = () => {
       SetValues(productData.price.split(" "));
     }
   }, []);
-  
-
-  
 
   return (
     <Stack
@@ -155,6 +135,7 @@ const SingleProductPage = () => {
               direction={{ base: "row", md: "row", lg: "column" }}
               padding={3}
               pl={0}
+              justifyContent="center"
             >
               {itemData?.moreImage.map((img: string, idx: number) => (
                 <Image
@@ -199,7 +180,7 @@ const SingleProductPage = () => {
                 {itemData.name}
               </Text>
 
-              <Text fontSize={{ base: "10px", md: "15px" }} color="grey.500">
+              <Text fontSize={{ base: "15px", md: "15px" }} color="grey.500">
                 {itemData.Category}
               </Text>
             </Stack>
@@ -222,9 +203,11 @@ const SingleProductPage = () => {
               <Text>inclusive of all taxes</Text>
             </Stack>
 
-            <Text fontWeight="extrabold">SELECT SIZE</Text>
+            <Text fontWeight="bold" mt={{ base: 3, md: 0 }}>
+              SELECT SIZE
+            </Text>
 
-            <HStack spacing={5} flexWrap="wrap">
+            <HStack marginY={3} spacing={5} flexWrap="wrap">
               {sizes.map((el, idx) => (
                 <Stack key={idx} p={0}>
                   <Button
@@ -308,51 +291,49 @@ const SingleProductPage = () => {
             <HStack
               w="full"
               justify={{ base: "center", md: "flex-start", lg: "flex-start" }}
+              mt={{ base: 3, md: 0 }}
             >
-          {(data?.cartData?.indexOf(itemData) !== -1) ? 
-            <Button
-                onClick={() => Navigate("/cart")}
-                fontSize="md"
-                padding={4}
-                _hover={{ bgColor: { buttonBgColorHover } }}
-                // bgColor={buttonBgColor}
-                colorScheme="teal"
-                variant='outline'
-                borderRadius="none"
-                w={{ base: "50%", md: "65%" }}
-              >
-                
-
-                Go to Cart
-              </Button>
-          :<Button
-                onClick={() => handleClick("Cart")}
-                fontSize="md"
-                padding={4}
-                _hover={{ bgColor: { buttonBgColorHover } }}
-                bgColor={buttonBgColor}
-                color={buttonColor}
-                borderRadius="none"
-                w={{ base: "50%", md: "65%" }}
-              >
-                <BiShoppingBag
-                  fontSize={{ base: "25px", sm: "25px", md: "md" }}
-                />
-
-                {!isButLoading && bagbutton && "Buy Now"}
-                {!isButLoading && !bagbutton && "ADDED"}
-                {isButLoading && (
-                  <Spinner
-                    thickness="4px"
-                    speed="0.55s"
-                    emptyColor="gray.200"
-                    color="blue.500"
-                    size="lg"
+              {data?.cartData?.indexOf(itemData) !== -1 ? (
+                <Button
+                  onClick={() => Navigate("/cart")}
+                  fontSize="md"
+                  padding={4}
+                  _hover={{ bgColor: { buttonBgColorHover } }}
+                  colorScheme="teal"
+                  variant="outline"
+                  borderRadius="none"
+                  w={{ base: "50%", md: "65%" }}
+                >
+                  Go to Cart
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => handleClick("Cart")}
+                  fontSize="md"
+                  padding={4}
+                  _hover={{ bgColor: { buttonBgColorHover } }}
+                  bgColor={buttonBgColor}
+                  color={buttonColor}
+                  borderRadius="none"
+                  w={{ base: "50%", md: "65%" }}
+                >
+                  <BiShoppingBag
+                    fontSize={{ base: "25px", sm: "25px", md: "md" }}
                   />
 
-
-                )}
-              </Button>}
+                  {!isButLoading && bagbutton && "Buy Now"}
+                  {!isButLoading && !bagbutton && "ADDED"}
+                  {isButLoading && (
+                    <Spinner
+                      thickness="4px"
+                      speed="0.55s"
+                      emptyColor="gray.200"
+                      color="blue.500"
+                      size="lg"
+                    />
+                  )}
+                </Button>
+              )}
 
               <Button
                 onClick={() => handleClick("Wishlist")}

@@ -2,23 +2,35 @@ import { Grid } from "@chakra-ui/react";
 import ProductItem from "./product-item";
 import { ProductModel } from "../../../utils/model/product-data-model";
 
-const ProductList = (data: { data: ProductModel[] , name: string }) => {
+
+interface ProductListProps{
+ data: ProductModel[];
+           name: string ;
+           filterCondition:(item: ProductModel) => void
+          
+}
+
+const ProductList:React.FC<ProductListProps>= ({data, name , filterCondition}) => {
  
   return (
     <Grid
-      templateColumns={{ base: "repeat(2,1fr)", md: "repeat(4,1fr)" }}
+      templateColumns={{ base: "repeat(2,1fr)", md: "repeat(3,1fr)" , lg: "repeat(4,1fr)" }}
       fontSize="sm"
       fontWeight="500"
-      columnGap={4}
-      rowGap={2}
+      columnGap={{base:0,md:0.5,lg:4}}
+      rowGap={{base:0,md:2}}
       p={0.5}
-      width="95%"
+      width={{base:"100%",lg:"95%"}}
       h="100%"
-      border="1px solid #ccd4de"
+      // border={{base:"none",md:"1px solid #ccd4de"}}
     >
-      {data?.data?.map((el, idx) => (
-        <ProductItem key={idx} data={el} name={data?.name} />
-      ))}
+      {data &&
+        data
+          ?.filter(filterCondition)
+
+          .map((el, idx) => (
+            <ProductItem key={idx} data={el} name={name} />
+          ))}
     </Grid>
   );
 };

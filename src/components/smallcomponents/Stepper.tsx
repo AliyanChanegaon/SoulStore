@@ -1,20 +1,30 @@
-import { Box, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Text, VStack, useSteps } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Box,
+  Step,
+  StepIcon,
+  StepIndicator,
+  StepNumber,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  useSteps,
+} from "@chakra-ui/react";
 
 const steps = [
-  { title: 'MY CART', description: 'Contact Info' },
-  { title: 'ADDRESS', description: 'Date & Time' },
-  { title: 'PAYMENT', description: 'Select Rooms' },
-]
+  { title: "MY CART", description: "Contact Info" },
+  { title: "ADDRESS", description: "Date & Time" },
+  { title: "PAYMENT", description: "Select Rooms" },
+];
 
-export default function StepperFunc(step:{ step: number }) {
+export default function StepperFunc(step: { step: number }) {
   const { activeStep } = useSteps({
     index: step.step,
     count: steps.length,
-  })
+  });
 
   return (
-    <Stepper size={{base:'sm',md:'md',lg:'lg'}} index={activeStep}>
+    <Stepper size={{ base: "sm", md: "md", lg: "lg" }} index={activeStep}>
       {steps.map((step, index) => (
         <Step key={index}>
           <StepIndicator>
@@ -25,7 +35,7 @@ export default function StepperFunc(step:{ step: number }) {
             />
           </StepIndicator>
 
-          <Box flexShrink='0'>
+          <Box flexShrink="0">
             <StepTitle>{step.title}</StepTitle>
             {/* <StepDescription>{step.description}</StepDescription> */}
           </Box>
@@ -34,5 +44,5 @@ export default function StepperFunc(step:{ step: number }) {
         </Step>
       ))}
     </Stepper>
-  )
+  );
 }

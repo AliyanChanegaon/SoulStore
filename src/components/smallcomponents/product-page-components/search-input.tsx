@@ -1,42 +1,74 @@
 import { Button, Checkbox, Input, Wrap } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const SearchInput = (data: { name: string; options: Array<string> }) => {
+interface SearchInputProps {
+  name: string;
+  options: Array<string>;
+  setSelectedCategory: (value: Array<string>) => void;
+  selectedCategory: Array<string>;
+  setSelectedSize: (value: string) => void;
+  selectedSize: string;
+}
+
+const SearchInput: React.FC<SearchInputProps> = ({
+  name,
+  options,
+  setSelectedCategory,
+  selectedCategory,
+  setSelectedSize,
+  selectedSize,
+}) => {
   const [searchItem, setSearchItem] = useState("");
-  const [optionsData, setOptions] = useState<Array<string>>([]);
-  
-
-  useEffect(() => {
-    if (data.options) {
-      setOptions(data?.options);
-    }
-  }, []);
 
   return (
     <>
       <Input
-        placeholder={`Search ${data?.name}`}
+        placeholder={`Search ${name}`}
         onChange={(e) => setSearchItem(e.target.value)}
       />
 
-      {optionsData && data?.name === "product" && (
+      {options && name === "product" && (
         <>
-          {optionsData
-            ?.filter((option) => option.toLowerCase().includes(searchItem))
+          {options
+            ?.filter((option) =>
+              option.toLowerCase().includes(searchItem.toLowerCase())
+            )
             .map((option, id) => (
-              <Checkbox key={id} colorScheme="green">
+              <Checkbox
+                value={option}
+                key={id}
+                isChecked={selectedCategory.includes(option)}
+                onChange={() =>
+                  selectedCategory.includes(option)
+                    ? setSelectedCategory(
+                        selectedCategory.filter((data) => data !== option)
+                      )
+                    : setSelectedCategory([...selectedCategory, option])
+                }
+                colorScheme="green"
+              >
                 {option}
               </Checkbox>
             ))}
         </>
       )}
 
-      {optionsData && data?.name === "size" && (
+      {options && name === "size" && (
         <Wrap>
-          {optionsData
+          {options
             ?.filter((option) => option.toLowerCase().includes(searchItem))
             .map((option, id) => (
-              <Button key={id} size="xs" colorScheme="blue" variant="outline" >
+              <Button
+                key={id}
+                size="xs"
+                colorScheme="blue"
+                variant={selectedSize === option ? "solid" : "outline"}
+                onClick={() =>
+                  selectedSize === option
+                    ? setSelectedSize("")
+                    : setSelectedSize(option)
+                }
+              >
                 {option}
               </Button>
             ))}

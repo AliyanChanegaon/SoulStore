@@ -5,12 +5,8 @@ import {
   IconButton,
   Button,
   Stack,
-  Collapse,
-  Icon,
-  Link,
   HStack,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Image,
   Drawer,
@@ -18,25 +14,91 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  TabList,
-  Tab,
-  TabPanel,
-  TabPanels,
-  Tabs,
   VStack,
+  Divider,
+  useToast,
+  Tooltip,
+  Tag,
+  Avatar,
+  TagLabel,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  SearchIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import MenuBar from "../components/smallcomponents/menu";
 import { FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import Logo from "../components/smallcomponents/logo";
 import ThemeButton from "../components/smallcomponents/theme";
 import { NavLink, useNavigate } from "react-router-dom";
+import SearchBar from "../components/smallcomponents/Search";
+import { BsSearch } from "react-icons/bs";
+import { useContext, useState } from "react";
+import { AppContext, MyContextType } from "../context/app-context";
+import { ConfirmationDialog } from "../components/dialog/confirmation-dialog";
+
+interface HamburgerProp {
+  onClose: () => void;
+}
+
+const menusList: Array<{ title: string; options?: Array<string> }> = [
+  {
+    title: "TOPWEAR",
+    options: [
+      "Shirts",
+      "Tops",
+      "T-Shirts",
+      "Boyfriend T-shirts",
+      "Co-ord Sets",
+      "Lounge Bralettes",
+      "Dresses",
+      "Sweatshirts & Sweaters",
+      "Hoodies & Jackets",
+    ],
+  },
+
+  {
+    title: "BOTTOMWEAR",
+    options: [
+      "Cargos & Joggers",
+      "Shorts",
+      "Innerwear",
+      "Freestyle Leggings",
+      "All Day Pants",
+      "Pajamas",
+    ],
+  },
+  {
+    title: "SHOES & ACCESSORIES",
+    options: ["Shoes New", "Perfumes", "Socks", "Backpacks", "Caps"],
+  },
+  {
+    title: "SHOP BY THEMES",
+    options: [
+      "TSS ORIGINALS",
+      "SOLIDS",
+      "SUPERHEROES",
+      "All Superheroes",
+      "Captain America™",
+      "X-Men™",
+      "Marvel™",
+      "Spider-Man™",
+      "Black Panther™",
+      "Iron Man™",
+      "Captain Marvel™",
+      "Punisher™",
+      "Doctor Strange",
+      "DC Comics™",
+      "Batman™",
+      "Superman™",
+      "Wonder Woman™",
+      "The Flash™",
+      "Hulk™",
+      "Thor™",
+      "Joker™",
+      "Deadpool™",
+    ],
+  },
+];
+
 const mainLinks: Array<{ path: string; title: string }> = [
   {
     path: "/men",
@@ -55,30 +117,36 @@ const mainLinks: Array<{ path: string; title: string }> = [
 ];
 export default function Navbar() {
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const { isAuth, userData } = useContext<MyContextType>(AppContext);
+
+  const [Searchbar, SetSearchBar] = useState(false);
+  const Navigate = useNavigate();
+
+  const bg = useColorModeValue("red.500", "#2a9df4");
+  const menubg = useColorModeValue("none", "#0e4482");
 
   return (
     <Box width="full">
       <Flex
         h={30}
-        display={{ base: "block", md: "none" }}
+        display={{ base: "block", md: "block", lg: "none" }}
         width="full"
-        bgColor="red.500"
+        bgColor={bg}
       ></Flex>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
+        bg={menubg}
         color={useColorModeValue("gray.600", "white")}
-        h={{ base: "40px", md: "105px" }}
+        h={{ base: "40px", md: "50px", lg: "105px" }}
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
+        position="relative"
       >
-        <Flex
+        <Stack
           flex={{ base: 0, md: "auto" }}
-          ml={{ base: -2 }}
-          display={{ base: "inline", md: "none" }}
+          display={{ base: "inline", md: "inline", lg: "none" }}
           position="absolute"
-          left="5%"
           zIndex="1"
         >
           <IconButton
@@ -93,59 +161,107 @@ export default function Navbar() {
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
-        </Flex>
+        </Stack>
         <Stack
-          display={{ base: "flex", md: "none" }}
+          display={{ base: "flex", md: "flex", lg: "none" }}
           flexDirection="row"
           position="absolute"
-          right="4%"
+          zIndex={3}
+          right="5%"
+          style={{ filter: menubg === "none" ? "none" : "invert(100%)" }}
         >
-          <NavLink to={"/"} end>
-            <Image height="25px" src="\public\img\icons\search.png" />
-          </NavLink>
+          <Image
+            onClick={() => SetSearchBar(!Searchbar)}
+            height="25px"
+            src="\public\img\icons\search.png"
+          />
 
-          <NavLink to={"/wishlist"} end>
-            <Image height="25px" src="\public\img\icons\heart.png" />
-          </NavLink>
+          <Image
+            onClick={() => Navigate("/wishlist")}
+            height="25px"
+            src="\public\img\icons\heart.png"
+          />
 
-          <NavLink to={"/cart"} end>
-            <Image height="25px" src="\public\img\icons\cart.png" />
-          </NavLink>
+          <Image
+            onClick={() => Navigate("/cart")}
+            height="25px"
+            src="\public\img\icons\cart.png"
+          />
         </Stack>
+
         <Flex
           position="relative"
           flex={{ base: 1 }}
           justify={{ base: "center", md: "start" }}
-          //
         >
-          <Stack
-            // display={{ base: "none", md: "inline" }}
-            position={{ base: "relative", md: "absolute" }}
-            left={{ md: 30 }}
-            top={{ base: -2, md: 2 }}
-          >
-            <Logo />
-          </Stack>
+          {Searchbar === false && (
+            <Stack
+              position={{ base: "relative", md: "relative", lg: "absolute" }}
+              left={{ md: "40%", lg: 30 }}
+              top={{ base: -2, md: 2 }}
+            >
+              <Logo />
+            </Stack>
+          )}
 
           <DesktopNav />
         </Flex>
+        {Searchbar && (
+          <Stack
+            w="100%"
+            onBlur={() => SetSearchBar(!Searchbar)}
+            position="absolute"
+            zIndex={4}
+          >
+            <SearchBar />
+          </Stack>
+        )}
       </Flex>
       {/* <Button border="2px solid red" colorScheme='blue' onClick={onOpen}>
         Open
       </Button> */}
+
+      {isAuth && (
+        <Tag
+          zIndex={9999}
+          display={{ base: "none", md: "initial" }}
+          position="fixed"
+          mt={5}
+          right={10}
+          size="lg"
+          colorScheme="facebook"
+          borderRadius="full"
+        >
+          <Stack
+            flexDirection="row"
+            h="100%"
+            m="auto"
+            align="center"
+            justify="center"
+          >
+            <Avatar
+              src="https://bit.ly/sage-adebayo"
+              size="xs"
+              name={userData}
+              m={0}
+            />
+            <TagLabel>{userData}</TagLabel>
+          </Stack>
+        </Tag>
+      )}
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader
             borderBottomWidth="1px"
-            color="white"
+            color="transparent"
             style={{ height: "92px" }}
           >
             Basic Drawer
           </DrawerHeader>
           <DrawerBody p={0}>
-            <MobileDrawer />
+            <MobileDrawer onClose={onClose} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -154,13 +270,44 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const { isAuth, setisAuth } = useContext<MyContextType>(AppContext);
+  const [isHovered, setIsHovered] = useState(false);
+  const NavIcons: any = [
+    {
+      path: "/login",
+      type: isAuth ? "logout" : "link",
+      icon: isAuth ? "" : <FaRegUser />,
+    },
+
+    {
+      path: "/wishlist",
+      type: "link",
+      icon: <FaRegHeart />,
+    },
+    {
+      path: "/cart",
+      type: "link",
+      icon: <FaShoppingBag />,
+    },
+    {
+      type: "button",
+      icon: <ThemeButton />,
+    },
+  ];
+
+  const toast = useToast();
   const bg = useColorModeValue("red.500", "#2a9df4");
   const color = useColorModeValue("black", "white");
-
   const menubg = useColorModeValue("none", "#0e4482");
+  const [isDialogOpen, setisDialogOpen] = useState(false);
+  const { userData } = useContext<MyContextType>(AppContext);
+
+  const Handlinghover = () => {
+    setIsHovered(true);
+  };
+  const HandlingMouseLeave = () => {
+    setIsHovered(false);
+  };
   const defaultstyle = {
     color: "white",
     padding: "12px",
@@ -176,7 +323,7 @@ const DesktopNav = () => {
 
   return (
     <VStack
-      display={{ base: "none", md: "flex" }}
+      display={{ base: "none", md: "none", lg: "flex" }}
       gap={0}
       w="100%"
       maxW="100vw"
@@ -223,7 +370,7 @@ const DesktopNav = () => {
         justifyContent="space-between"
         boxShadow="0px 2px 2px 0px rgba(199,191,199,1)"
         bg={menubg}
-        border="2px solid red"
+        // border="2px solid red"
       >
         <Stack
           flexDirection="row"
@@ -238,45 +385,117 @@ const DesktopNav = () => {
           ))}
         </Stack>
 
-        <HStack mr={50} gap={7}>
-          {NavIcons.map((el: any, idx: number) => {
-            return el.type == "link" ? (
-              <NavLink key={idx} to={el.path} end>
-                <IconButton
-                  key={idx}
-                  variant="ghost"
-                  fontSize="2xl"
-                  aria-label="Call Segun"
-                  size="xl"
-                  icon={el.icon}
-                />
-              </NavLink>
-            ) : (
-              <div key={idx}>{el.icon}</div>
-            );
-          })}
+        <HStack mr={50} gap={7} w="35%" justifyContent="space-between">
+          <Stack
+            w="65%"
+            zIndex={2}
+            style={{ display: isHovered ? "flex" : "none" }}
+            onMouseEnter={Handlinghover}
+            onMouseLeave={HandlingMouseLeave}
+          >
+            <SearchBar />
+          </Stack>
+          <Stack
+            position="absolute"
+            onMouseOver={Handlinghover}
+            onMouseLeave={HandlingMouseLeave}
+            style={{ display: isHovered ? "none" : "flex" }}
+            right="17%"
+            zIndex={3}
+          >
+            <BsSearch size="20px" />
+          </Stack>
+
+          <Stack
+            position="absolute"
+            w="34.5%"
+            flexDirection="row"
+            justifyContent="flex-end"
+            gap={5}
+          >
+            {NavIcons.map((el: any, idx: number) => {
+              if (el.type == "logout") {
+                return (
+                  <>
+                    <Tooltip label={userData} placement="top">
+                      <IconButton
+                        key="FiLogOut"
+                        variant="ghost"
+                        fontSize="2xl"
+                        aria-label="Call Segun"
+                        size="xl"
+                        onClick={() => setisDialogOpen(true)}
+                        icon={<FiLogOut />}
+                      />
+                    </Tooltip>
+                    {isDialogOpen && (
+                      <ConfirmationDialog
+                        isOpen={isDialogOpen}
+                        onClose={() => setisDialogOpen(false)}
+                        confirmationMessage={<Text>Logout</Text>}
+                        messageBodyLines={
+                          <>
+                            <Text>Are you sure you want to logout ? </Text>
+                          </>
+                        }
+                        onYesClick={() => {
+                          setisAuth(false);
+                          setisDialogOpen(false);
+                          toast({
+                            title: "Logout Successfull.",
+                            // description: "We've created your account for you.",
+                            status: "info",
+                            duration: 9000,
+                            isClosable: true,
+                          });
+                        }}
+                      />
+                    )}
+                  </>
+                );
+              }
+
+              return el.type == "link" ? (
+                <NavLink key={idx} to={el.path} end>
+                  <IconButton
+                    key={idx}
+                    variant="ghost"
+                    fontSize="2xl"
+                    aria-label="Call Segun"
+                    size="xl"
+                    icon={el.icon}
+                    _hover={{ bgColor: "none" }}
+                  />
+                </NavLink>
+              ) : (
+                <div key={idx} style={{ backgroundColor: "none" }}>
+                  {el.icon}{" "}
+                </div>
+              );
+            })}
+          </Stack>
         </HStack>
       </HStack>
     </VStack>
   );
 };
 
-const MobileDrawer = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
-  const bg = useColorModeValue("red.500", "#2a9df4");
-  const color = useColorModeValue("black", "white");
+const MobileDrawer = ({ onClose: DrawerClose }: HamburgerProp) => {
+  const { isAuth, setisAuth, userData } = useContext<MyContextType>(AppContext);
+  const [isDialogOpen, setisDialogOpen] = useState(false);
+
+  const bg = useColorModeValue("black", "white");
   const Navigate = useNavigate();
-  const menubg = useColorModeValue("none", "#0e4482");
+  const menubg = useColorModeValue("white", "#2d3748");
+
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
-      display={{ md: "none" }}
+      display={{ lg: "none" }}
       width="100%"
     >
       <Stack
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", md: "none", lg: "none" }}
         position="absolute"
         top="2%"
         left="5%"
@@ -284,237 +503,140 @@ const MobileDrawer = () => {
         <Logo />
       </Stack>
       <Stack
-        display={{ base: "flex", md: "none" }}
+        display={{ base: "flex", lg: "none" }}
         position="absolute"
         top="2%"
-        left="45%"
+        left={isAuth ? "65%" : "45%"}
       >
-        <Button
-          colorScheme="teal"
-          variant="outline"
-          onClick={() => Navigate("/login")}
-        >
-          Login/Register
-        </Button>
-      </Stack>
-      <Tabs style={{ width: "full" }} p={2} align="center" variant="line">
-        <TabList
-          style={{
-            width: "fit-content",
-            boxShadow:
-              "box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-          }}
-        >
-          <Tab>Men</Tab>
-          <Tab>Women</Tab>
-          <Tab>Kids</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            {NAV_ITEMS.map((navItem) => (
-              <MobileDrawerItem key={navItem.label} {...navItem} />
-            ))}
-          </TabPanel>
-          <TabPanel>
-            {NAV_ITEMS.map((navItem) => (
-              <MobileDrawerItem key={navItem.label} {...navItem} />
-            ))}
-          </TabPanel>
-          <TabPanel>
-            {NAV_ITEMS.map((navItem) => (
-              <MobileDrawerItem key={navItem.label} {...navItem} />
-            ))}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Stack>
-  );
-};
-
-const MobileDrawerItem = ({ label, children, href }: NavItem) => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
-
-  return (
-    <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
+        {isAuth ? (
+          <Button
+            colorScheme="teal"
+            variant="outline"
+            onClick={() => setisDialogOpen(true)}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button
+            colorScheme="teal"
+            variant="outline"
+            onClick={() => Navigate("/login")}
+          >
+            Login/Register
+          </Button>
+        )}
+        {isDialogOpen && (
+          <ConfirmationDialog
+            isOpen={isDialogOpen}
+            onClose={() => setisDialogOpen(false)}
+            confirmationMessage={<Text>Logout</Text>}
+            messageBodyLines={
+              <>
+                <Text>{`${userData} are you sure you want to logout ? `}</Text>
+              </>
+            }
+            onYesClick={() => {
+              setisAuth(false);
+              setisDialogOpen(false);
+              DrawerClose();
+            }}
           />
         )}
-      </Flex>
-
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
+      </Stack>
+      <Stack
+        pt={2}
+        align="center"
+        justify="center"
+        fontWeight="500"
+        bgColor={menubg}
+        gap={0}
+        color={bg}
+      >
         <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          align={"start"}
+          p={2}
+          m={0}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
         >
-          {menusList.length &&
-            menusList.map((child, idx) => (
-              <Link key={idx} py={2}>
-                {child.title}
-              </Link>
-            ))}
+          <Text cursor="pointer" onClick={() => Navigate("/men")}>
+            Mens
+          </Text>
         </Stack>
-      </Collapse>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+
+        <Stack
+          p={2}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
+        >
+          <Text cursor="pointer" onClick={() => Navigate("/women")}>
+            Womens
+          </Text>
+        </Stack>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+
+        <Stack
+          p={2}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
+        >
+          <Text cursor="pointer" onClick={() => Navigate("/kid")}>
+            Kids
+          </Text>
+        </Stack>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+
+        <Stack
+          p={2}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
+        >
+          <Text cursor="pointer" onClick={() => Navigate("/mens-product")}>
+            Mens product page
+          </Text>
+        </Stack>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+
+        <Stack
+          p={2}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
+        >
+          <Text cursor="pointer" onClick={() => Navigate("/womens-product")}>
+            Womens product page
+          </Text>
+        </Stack>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+
+        <Stack
+          p={2}
+          _hover={{ bgColor: "#b9b8b8" }}
+          textAlign="center"
+          align="center"
+          width="100%"
+        >
+          <Text cursor="pointer" onClick={() => Navigate("/kids-product")}>
+            Kids product page
+          </Text>
+        </Stack>
+
+        <Divider p={0} m={0} h="1px" w="80%" />
+      </Stack>
     </Stack>
   );
 };
-
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-const menusList: Array<{ title: string; options?: Array<string> }> = [
-  {
-    title: "TOPWAEAR",
-    options: [
-      "Shirts",
-      "Tops",
-      "T-Shirts",
-      "Boyfriend T-shirts",
-      "Co-ord Sets",
-      "Lounge Bralettes",
-      "Dresses",
-      "Sweatshirts & Sweaters",
-      "Hoodies & Jackets",
-    ],
-  },
-
-  {
-    title: "BOTTOMWEAR",
-    options: [
-      "Cargos & Joggers",
-      "Shorts",
-      "Innerwear",
-      "Freestyle Leggings",
-      "All Day Pants",
-      "Pajamas",
-    ],
-  },
-  {
-    title: "SHOES & ACCESSORIES",
-    options: ["Shoes New", "Perfumes", "Socks", "Backpacks", "Caps"],
-  },
-  {
-    title: "MEMBERSHIP",
-  },
-  {
-    title: "SHOP BY THEMES",
-    options: [
-      "TSS ORIGINALS",
-      "SOLIDS",
-      "SUPERHEROES",
-      "All Superheroes",
-      "Captain America™",
-      "X-Men™",
-      "Marvel™",
-      "Spider-Man™",
-      "Black Panther™",
-      "Iron Man™",
-      "Captain Marvel™",
-      "Punisher™",
-      "Doctor Strange",
-      "DC Comics™",
-      "Batman™",
-      "Superman™",
-      "Wonder Woman™",
-      "The Flash™",
-      "Hulk™",
-      "Thor™",
-      "Joker™",
-      "Deadpool™",
-    ],
-  },
-];
-
-const NavIcons: any = [
-  {
-    type: "button",
-    icon: <SearchIcon />,
-  },
-
-  {
-    path: "/login",
-    type: "link",
-    icon: <FaRegUser />,
-  },
-
-  {
-    path: "/wishlist",
-    type: "link",
-    icon: <FaRegHeart />,
-  },
-  {
-    path: "/cart",
-    type: "link",
-    icon: <FaShoppingBag />,
-  },
-  {
-    type: "button",
-    icon: <ThemeButton />,
-  },
-];
-
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: "Inspiration",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Learn Design",
-    href: "#",
-  },
-  {
-    label: "Hire Designers",
-    href: "#",
-  },
-];

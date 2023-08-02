@@ -66,14 +66,14 @@ export default function Kid() {
         <TopSlider data={ShopItems} collection="collectionItems" />
       </VStack>
 
-      <VStack gap={4} w="100%">
+      <VStack gap={4}  w="100%">
         <Text align="center">CATEGORIES</Text>
         <Category data={categoryItems} category="kidsCategory" />
       </VStack>
 
       <VStack gap={4} w="100%">
         <Text align="center">MEMBERSHIP</Text>
-        <Image pr={4} width="94%" src=".\src\img\Membership.png" />
+        <Image pr={4} width="100%" src="\img\Membership.png" />
       </VStack>
 
       <VStack gap={4} w="100%">

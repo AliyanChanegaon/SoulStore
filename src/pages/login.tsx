@@ -7,21 +7,24 @@ import {
   Input,
   Stack,
   Text,
+  Tooltip,
   VStack,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterDetailsModel } from "../utils/model/login-model";
-const RegisterDetails = {
+import { useFormik } from "formik";
+import { LoginSchemas } from "../utils/schemas/login-schemas";
+import { AppContext, MyContextType } from "../context/app-context";
+const initialValues = {
   email: "",
   password: "",
 };
 
 const Login = () => {
-  const [registerData, setRegisterData] =
-    useState<RegisterDetailsModel>(RegisterDetails);
+  const { setUserData, setisAuth } = useContext<MyContextType>(AppContext);
   const Navigate = useNavigate();
   const bg = useColorModeValue("#e6e7e8", "#1a202c");
   const boxBg = useColorModeValue("whiteAlpha.900", "whiteAlpha.100");
@@ -30,7 +33,9 @@ const Login = () => {
   const textColor = useColorModeValue("red", "#a2d4ec");
   const toast = useToast();
 
-  const HandlingSubmit = () => {
+  const HandlingSubmit = (values: RegisterDetailsModel) => {
+    console.log(values);
+
     const existingData =
       JSON.parse(localStorage.getItem("userData") as string) || [];
 
@@ -45,22 +50,21 @@ const Login = () => {
       });
     }
 
-
-
-
-    const existingEmails = existingData.map(
-      (data: RegisterDetailsModel) => data.email 
+    const User = existingData.find(
+      (data: RegisterDetailsModel) => data.email == values.email
     );
 
-    const existingPassword = existingData.map(
-      (data: RegisterDetailsModel) => data.password 
-    );
+    if (User == undefined) {
+      return toast({
+        title: "Error",
+        description: "User Not Found",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
 
-
-    if (
-      existingEmails.includes(registerData.email) &&
-      existingPassword.includes(registerData.password)
-    ) {
+    if (User.email == values.email && User.password == values.password) {
       toast({
         title: "Login successful",
 
@@ -69,41 +73,13 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
+      setisAuth(true);
+      Navigate("/men");
+      return setUserData(User.firstName + " " + User.lastName);
     }
 
-    if (
-      !existingEmails.includes(registerData.email) &&
-      !existingPassword.includes(registerData.password)
-    ) {
-      toast({
-        title: "Error",
-
-        description: "Incorrect credentials",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-
-    if (
-      !existingEmails.includes(registerData.email) &&
-      existingPassword.includes(registerData.password)
-    ) {
-      toast({
-        title: "Error",
-
-        description: "Incorrect email",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-
-    if (
-      existingEmails.includes(registerData.email) &&
-      !existingPassword.includes(registerData.password)
-    ) {
-      toast({
+    if (User.email == values.email && User.password !== values.password) {
+      return toast({
         title: "Error",
 
         description: "Incorrect password",
@@ -114,15 +90,18 @@ const Login = () => {
     }
   };
 
-  const HandlingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    // console.log(e.target)
-     
-    setRegisterData({
-      ...registerData,
-      [name]: value,
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: LoginSchemas,
+      onSubmit: (values) => {
+        // action.resetForm();
+
+        if (Object.keys(errors).length === 0) {
+          HandlingSubmit(values);
+        }
+      },
     });
-  };
 
   return (
     <VStack
@@ -134,7 +113,7 @@ const Login = () => {
     >
       <Stack
         margin="auto"
-        w={{ base: "100%", md: "32%" }}
+        w={{ base: "100%", md: "75%", lg: "32%" }}
         h="auto"
         justifyContent="center"
         p={{ base: 6, md: 8 }}
@@ -169,7 +148,7 @@ const Login = () => {
           _after={{
             content: `""`,
             position: "absolute",
-            top: "-4%",
+            top: "-3.5%",
             left: "24%",
             marginLeft: "-5px",
             width: "0",
@@ -205,46 +184,81 @@ const Login = () => {
           <Text align="center">- OR -</Text>
 
           <Stack gap={4} w="100%">
-            <Input
-              name="email"
-              colorScheme="whiteAlpha"
-              type="email"
-              variant="outline"
-              placeholder="Enter email"
-              w="100%"
-              onChange={(e) => HandlingChange(e)}
-            />
-            <Input
-              name="password"
-              colorScheme="whiteAlpha"
-              type="password"
-              variant="outline"
-              placeholder="Enter password"
-              w="100%"
-              onChange={(e) => HandlingChange(e)}
-            />
+            <Tooltip
+              label={errors.email && touched.email ? errors.email : null}
+              bgColor={"red.500"}
+              placement="top"
+              hasArrow
+              arrowSize={5}
+            >
+              <Input
+                name="email"
+                value={values.email}
+                borderColor={errors.email && touched.email ? "red" : "gray"}
+                borderWidth={errors.email && touched.email ? "2px" : "1px"}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                colorScheme="whiteAlpha"
+                type="email"
+                variant="outline"
+                placeholder="Enter email"
+                w="100%"
+                // onChange={(e) => HandlingChange(e)}
+              />
+            </Tooltip>
+            <Tooltip
+              label={
+                errors.password && touched.password ? errors.password : null
+              }
+              bgColor={"red.500"}
+              placement="top"
+              hasArrow
+              arrowSize={5}
+            >
+              <Input
+                name="password"
+                value={values.password}
+                borderColor={
+                  errors.password && touched.password ? "red" : "gray"
+                }
+                borderWidth={
+                  errors.password && touched.password ? "2px" : "1px"
+                }
+                onChange={handleChange}
+                onBlur={handleBlur}
+                colorScheme="whiteAlpha"
+                type="password"
+                variant="outline"
+                placeholder="Enter password"
+                w="100%"
+                // onChange={(e) => HandlingChange(e)}
+              />
+            </Tooltip>
 
             <Button
               colorScheme={buttonBg}
               variant="solid"
               w="100%"
-              onClick={HandlingSubmit}
+              // onClick={HandlingSubmit}
+              onClick={() => handleSubmit()}
             >
               LOGIN
             </Button>
           </Stack>
 
           <Text align="center" fontSize="sm">
-            <Highlight
-              query="Create Account"
-              styles={{
-                cursor: "pointer",
-                color: textColor,
-                textDecoration: "underline",
-              }}
-            >
-              New User ? Create Account
-            </Highlight>
+            <Link to={"/register"}>
+              <Highlight
+                query="Create Account"
+                styles={{
+                  cursor: "pointer",
+                  color: textColor,
+                  textDecoration: "underline",
+                }}
+              >
+                New User ? Create Account
+              </Highlight>
+            </Link>
           </Text>
         </Stack>
       </Stack>

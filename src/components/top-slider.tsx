@@ -1,23 +1,16 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import {
-  Card,
-  Image,
-  SimpleGrid,
-  CardBody,
-  HStack,
-  border,
-  Stack,
-} from "@chakra-ui/react";
+import { Image, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { Link, useLocation } from "react-router-dom";
 
 interface sliderProp {
   data: string[];
   collection?: string;
 }
-
+//   <Link to={"/mens-product"}>
 const collectionResponsive = {
   0: { items: 1 },
   568: { items: 2 },
@@ -32,6 +25,8 @@ const MerchandiseResponsive = {
 
 const TopSlider = (data: sliderProp) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const location = useLocation();
+  const { pathname } = location;
 
   const slidePrev = () => {
     activeIndex == 0
@@ -46,24 +41,26 @@ const TopSlider = (data: sliderProp) => {
   };
 
   const myData = data?.data?.map((el: string, idx: number) => (
-    <Image
-      key={idx}
-      width={(() => {
-        switch (data.collection) {
-          case "topSection":
-            return "100%";
+    <Link to={`${pathname}s-product`}>
+      <Image
+        key={idx}
+        width={(() => {
+          switch (data.collection) {
+            case "topSection":
+              return "100%";
 
-          case "collectionItems":
-            return "97%";
+            case "collectionItems":
+              return "97%";
 
-          case "officialMerchandise":
-            return "90%";
-        }
-      })()}
-      className="item"
-      data-value={idx}
-      src={el}
-    />
+            case "officialMerchandise":
+              return "90%";
+          }
+        })()}
+        className="item"
+        data-value={idx}
+        src={el}
+      />
+    </Link>
   ));
 
   return (

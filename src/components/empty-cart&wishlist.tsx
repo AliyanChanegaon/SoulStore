@@ -9,20 +9,20 @@ export const EmptyCart = (type: { type: string }) => {
   return (
     <>
       {type.type === "Cart" ? (
-        <VStack marginX="auto" my={5} w="100%" align="center">
+        <VStack marginX="auto" my={5} w="100%"  align="center">
           <HStack w="100%" justify="center">
             <StepperFunc  step={0}  />
           </HStack>
-          <HStack w="100%" justify="center">
+          <HStack my={5} w="100%" justify="center">
             <Divider orientation="horizontal" />
           </HStack>
 
           <Image w={{ base: "90px", lg: "150px" }} src="\img\Cart.png" />
-          <b>Your shopping cart is empty.</b>
+          <b style={{ fontSize: "18px" }}>Your shopping cart is empty.</b>
           <Text>Please add something soon, carts have feelings too.</Text>
           <br />
           <b style={{ fontSize: "14px" }}>Popular Categories</b>
-          <HStack gap={2}>
+          <HStack mt={2} mb={5} gap={2}>
             <Link to={"/mens-product"}>
               <Text
                 cursor="pointer"

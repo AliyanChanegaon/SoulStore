@@ -1,4 +1,4 @@
-import { Text, VStack, Image, Highlight } from "@chakra-ui/react";
+import { Text, VStack,Stack, Image, Highlight } from "@chakra-ui/react";
 import TopSlider from "../components/top-slider";
 import Category from "../components/category";
 import TopSeller from "../components/smallcomponents/top-seller";
@@ -105,14 +105,17 @@ const topSellerImg = [
 
 const Men = () => {
   return (
-    <VStack
+    <Stack
       w="100%"
       gap={10}
       maxW="1400px!important"
       fontWeight="bold"
       fontSize="2xl"
     >
+      <VStack w="100%">
+     
       <TopSlider data={sliderImages} collection="topSection" />
+      </VStack>
 
       <VStack gap={4} w="100%">
         <Text align="center">COLLECTIONS</Text>
@@ -167,7 +170,7 @@ const Men = () => {
           </Highlight>
         </Text>
       </VStack>
-    </VStack>
+    </Stack>
   );
 };
 

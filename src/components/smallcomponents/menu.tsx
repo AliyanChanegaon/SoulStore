@@ -3,16 +3,12 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  HStack,
-  Stack,
   useDisclosure,
   Grid,
-  GridItem,
   useColorModeValue,
 } from "@chakra-ui/react";
 
-import { ChevronDownIcon, ChevronUpIcon, SearchIcon } from "@chakra-ui/icons";
-import { useEffect, useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 interface menuType {
   title: string;
@@ -24,7 +20,7 @@ const MenuBar = (data: menuType) => {
   const bg = useColorModeValue("red.100", "#2a9df4");
   const color = useColorModeValue("black", "white");
   const bgstrip = useColorModeValue("red", "#04538f");
-  const TextColor=useColorModeValue("red", "white");
+  const TextColor = useColorModeValue("red", "white");
 
   console.log();
   return (
@@ -69,7 +65,7 @@ const MenuBar = (data: menuType) => {
                 ? `repeat(5,1fr)`
                 : `repeat(${Math.ceil((data?.options?.length || 0) / 5)}, 1fr)`
             }
-          >  
+          >
             {data?.options?.map((el, idx) => (
               <MenuItem
                 key={idx}

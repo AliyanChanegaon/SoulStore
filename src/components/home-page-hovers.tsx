@@ -1,15 +1,5 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button 
-} from "@chakra-ui/react";
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const HomepageHovers = () => {
   return (

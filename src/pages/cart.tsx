@@ -21,7 +21,7 @@ const PriceData={
 const Cart = () => {
   const { data } = useContext<MyContextType>(AppContext);
   
-  console.log(data)
+
   return (
     <>
       {data.cartData?.length===0 ? (

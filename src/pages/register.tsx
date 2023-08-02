@@ -45,18 +45,15 @@ const Register = () => {
   const buttonBg = useColorModeValue("teal", "telegram");
   const textColor = useColorModeValue("red", "#a2d4ec");
 
-  const Submitfunc = (values:RegisterDetailsModel) => {
-
-     
-      const existingData =
-        JSON.parse(localStorage.getItem("userData") as string) || [];
-      // console.log(existingData);
-      const updatedData = [...existingData, values];
-      localStorage.setItem("userData", JSON.stringify(updatedData));
-      console.log(updatedData);
-      Navigate("/login");
-    };
-  
+  const Submitfunc = (values: RegisterDetailsModel) => {
+    const existingData =
+      JSON.parse(localStorage.getItem("userData") as string) || [];
+    // console.log(existingData);
+    const updatedData = [...existingData, values];
+    localStorage.setItem("userData", JSON.stringify(updatedData));
+    console.log(updatedData);
+    Navigate("/login");
+  };
 
   const {
     values,
@@ -72,13 +69,10 @@ const Register = () => {
     onSubmit: (values, action) => {
       action.resetForm();
 
-      if(Object.keys(errors).length === 0){
-        Submitfunc(values)
+      if (Object.keys(errors).length === 0) {
+        Submitfunc(values);
         setValues(initialValues);
       }
-     
-
-     
     },
   });
 
@@ -86,7 +80,7 @@ const Register = () => {
     <VStack w="100%" bgColor={bg} p={{ base: 0, md: 4 }} fontSize="sm">
       <Stack
         margin="auto"
-        w={{ base: "100%", md: "32%" }}
+        w={{ base: "100%", md: "50%", lg: "32%" }}
         h="auto"
         justifyContent="center"
         p={{ base: 6, md: 8 }}
@@ -220,7 +214,6 @@ const Register = () => {
                     required
                   />
                 </Tooltip>
-               
               </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
@@ -353,14 +346,13 @@ const Register = () => {
                       onBlur={handleBlur}
                       type="number"
                       variant="outline"
-                      placeholder="Mobile Number (Status Update)"
+                      placeholder="    Mobile Number (Status Update)"
                       bgColor={boxBg}
                       rounded="xl"
                       required
                     />
                   </Tooltip>
                 </InputGroup>
-              
               </FormControl>
             </GridItem>
             <GridItem colSpan={2}>
@@ -375,11 +367,11 @@ const Register = () => {
             </GridItem>
             <GridItem colSpan={2}>
               <Button
-               type="submit"
+                type="submit"
                 w="100%"
                 colorScheme={buttonBg}
                 borderRadius={2}
-                onClick={()=>handleSubmit()}
+                onClick={() => handleSubmit()}
               >
                 REGISTER
               </Button>

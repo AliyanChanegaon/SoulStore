@@ -127,10 +127,22 @@ const Women = () => {
 
       <VStack gap={4} w="100%">
         <Text align="center">MEMBERSHIP</Text>
-        <Image pr={4} width="94%" src=".\src\img\Membership.png" />
+        <Image pr={4} width="94%" src="\img\Membership.png" />
       </VStack>
 
-      <Stack flexDirection="row">
+      <Stack flexDirection="column" gap={4} w="100%">
+        <Text
+          color="whiteAlpha.900"
+          bgColor="red"
+          w="100%"
+          align="center"
+          fontSize="1.4em"
+          fontWeight="500"
+          letterSpacing="1.5px"
+          line-height="1.1"
+        >
+          HOMEGROWN INDIAN BRAND
+        </Text>
         <Text align="center" fontSize="1.6em" fontWeight="400">
           <Highlight query="6 Million" styles={{ py: "1", fontWeight: "700" }}>
             Over 6 Million Happy Customers
