@@ -157,9 +157,9 @@ export default function Navbar() {
             onClick={onToggle}
             icon={
               isOpen ? (
-                <CloseIcon w={20} h={20} />
+                <CloseIcon w={7} h={7} />
               ) : (
-                <HamburgerIcon w={20} h={20} />
+                <HamburgerIcon w={7} h={7} />
               )
             }
             variant={"ghost"}
@@ -177,19 +177,19 @@ export default function Navbar() {
           <Image
             onClick={() => SetSearchBar(!Searchbar)}
             height="25px"
-            src="\public\img\icons\search.png"
+            src="\img\icons\search.png"
           />
 
           <Image
             onClick={() => Navigate("/wishlist")}
             height="25px"
-            src="\public\img\icons\heart.png"
+            src="\img\icons\heart.png"
           />
 
           <Image
             onClick={() => Navigate("/cart")}
             height="25px"
-            src="\public\img\icons\cart.png"
+            src="\img\icons\cart.png"
           />
         </Stack>
 
